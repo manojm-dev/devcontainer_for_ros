@@ -1,0 +1,28 @@
+services:
+  ros2:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    container_name: ros2_ws
+
+    # Interactive shell
+    stdin_open: true
+    tty: true
+    privileged: true
+
+    # Network
+    network_mode: host
+
+    environment:
+      # Default Shell
+      - SHELL=/bin/bash
+      # For gui
+      - DISPLAY=$DISPLAY
+      - XAUTHORITY=/tmp/.docker.xauth
+
+    volumes:
+      # Allows graphical programs in the container.
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+      # Allows source dir sync
+      - ../ws/:/root/ws:cache

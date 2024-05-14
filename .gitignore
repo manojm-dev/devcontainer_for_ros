@@ -1,0 +1,6 @@
+ws/build/*
+!ws/build/.gitkeep
+ws/install/*
+!ws/install/.gitkeep
+ws/log/*
+!ws/log/.gitkeep
