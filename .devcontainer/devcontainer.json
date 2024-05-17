@@ -1,5 +1,5 @@
 {
-	"name": "Na2 Workspace",
+	"name": "Nav2 Workspace",
 	"dockerComposeFile": ["compose.yml"],
 	"service":"ros2",
 
