@@ -15,6 +15,11 @@ RUN apt-get install -y \
     git \
     tmux
 
+# Sourcing
+RUN echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc && \
+    echo 'export PATH=/opt/venv/bin:$PATH' >> ~/.bashrc && \
+    echo 'source /usr/share/gazebo/setup.bash' >> ~/.bashrc
+
 # Install Gazebo Classic
 RUN apt-get install -y \
     ros-humble-gazebo-ros 
