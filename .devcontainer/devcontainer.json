@@ -22,5 +22,5 @@
 			]
 		}
 	},
-	"postCreateCommand": "echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc && echo 'export PATH=/opt/venv/bin:$PATH' >> ~/.bashrc && rosdep install --from-paths src --ignore-src --rosdistro humble -y && colcon build && echo 'source /ws/install/setup.bash' >> ~/.bashrc"
+	"postCreateCommand": "echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc && echo 'export PATH=/opt/venv/bin:$PATH' >> ~/.bashrc && rosdep install --from-paths src --ignore-src --rosdistro humble -y && colcon build && echo 'source /root/ws/install/setup.bash' >> ~/.bashrc"
 }
