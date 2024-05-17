@@ -18,11 +18,11 @@ services:
       - SHELL=/bin/bash
       # For gui
       - DISPLAY=$DISPLAY
-      - XAUTHORITY=/tmp/.docker.xauth
+      - XAUTHORITY=/root/.XAuthority
 
     volumes:
       # Allows graphical programs in the container.
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /tmp/.docker.xauth:/tmp/.docker.xauth
+      - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.XAuthority:rw
       # Allows source dir sync
       - ../ws/:/root/ws:cache
