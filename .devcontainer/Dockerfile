@@ -2,23 +2,36 @@ FROM osrf/ros:humble-desktop-full
 
 # Setup virutal env 
 RUN mkdir /opt/venv && \
-    apt-get update && apt upgrade -y && \
-    apt-get install -y \
+    apt update && apt upgrade -y && \
+    apt install -y \
     python3-pip && \
     pip install virtualenv && \
     virtualenv /opt/venv && \
     export PATH="/opt/venv/bin:$PATH"
 
 # Install Basic Tools
-RUN apt-get install -y \
+RUN apt install -y \
     nano \
+    cmake \
+    curl \
+    wget \
     git \
-    tmux
+    tmux \
+    python3-rosdep \
+    python3-vcstool
+
+# Colcon build requirements
+RUN /opt/venv/bin/pip install \
+    catkin_pkg \
+    empy==3.3.4 \
+    lark \
+    python3-colcon* 
 
 # Sourcing
 RUN echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc && \
     echo 'export PATH=/opt/venv/bin:$PATH' >> ~/.bashrc && \
-    echo 'source /usr/share/gazebo/setup.bash' >> ~/.bashrc
+    echo 'source /usr/share/gazebo/setup.bash' >> ~/.bashrc && \
+    echo 'source /usr/share/colcon_argcomplete/hook/colcon-argcomptlete.bash' >> ~/.bashrc
 
 # Install Gazebo Classic
 RUN apt-get install -y \
