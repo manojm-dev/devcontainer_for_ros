@@ -3,7 +3,7 @@ services:
     build:
         context: .
         dockerfile: Dockerfile
-    container_name: ros2_ws
+    container_name: nav2_ws
 
     # Interactive shell
     stdin_open: true
