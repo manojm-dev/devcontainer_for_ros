@@ -4,4 +4,4 @@ ws/install/*
 !ws/install/.gitkeep
 ws/log/*
 !ws/log/.gitkeep
-src/*
+w/src/*
