@@ -9,5 +9,5 @@ ws/log/*
 
 ws/src/*
 
-models/
+models/*
 !models/.gitkeep
