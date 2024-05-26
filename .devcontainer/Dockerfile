@@ -27,6 +27,14 @@ RUN apt-get install -y \
     gazebo\
     ~nros-humble-rqt*
 
+# Install nav2
+RUN apt-get install -y \
+    ros-humble-navigation2 \
+    ros-humble-nav2-bringup
+
+# Install turtulebot3
+RUN sudo apt install -y ros-humble-turtlebot3-gazebo
+
 # Dependencies
 
 # Colcon build requirements
@@ -41,5 +49,5 @@ RUN /opt/venv/bin/pip install \
 
 ## nav2
 RUN /opt/venv/bin/pip install \
-    numpy
+    numpy lxml
 

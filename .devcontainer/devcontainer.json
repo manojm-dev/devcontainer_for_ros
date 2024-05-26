@@ -18,5 +18,5 @@
 			]
 		}
 	},
-	"postCreateCommand": "rosdep install --from-paths src --ignore-src --rosdistro humble -y && colcon build && echo 'source /root/ws/install/setup.bash' >> ~/.bashrc"
+	"postCreateCommand": "rosdep install --from-paths src --ignore-src --rosdistro humble -y && colcon build --symlink-install && echo 'source /root/ws/install/setup.bash' >> ~/.bashrc"
 }

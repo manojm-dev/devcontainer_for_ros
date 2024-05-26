@@ -5,3 +5,4 @@ ws/install/*
 ws/log/*
 !ws/log/.gitkeep
 ws/src/*
+models/
