@@ -1,3 +1,6 @@
+models/*
+!models/.gitkeep
+
 ws/build/*
 !ws/build/.gitkeep
 
@@ -9,5 +12,5 @@ ws/log/*
 
 ws/src/*
 
-models/*
-!models/.gitkeep
+ws/data/*
+!ws/data/.gitkeep
