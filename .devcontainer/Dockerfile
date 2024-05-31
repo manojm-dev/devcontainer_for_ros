@@ -36,10 +36,11 @@ RUN apt-get install -y \
 # Install nav2
 RUN apt-get install -y \
     ros-humble-navigation2 \
-    ros-humble-nav2-bringup
+    ros-humble-nav2-bringup \
+    ros-humble-twist-mux
 
 # Install turtulebot3
-RUN sudo apt install -y ros-humble-turtlebot3-gazebo
+RUN sudo apt install -y ros-humble-turtlebot3*
 
 # Dependencies
 
