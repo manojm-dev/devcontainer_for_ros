@@ -9,7 +9,6 @@ services:
     tty: true
 
     network_mode: host
-    privileged: true
 
     environment:
       # default shell
@@ -24,11 +23,12 @@ services:
       - ROS_LOCALHOST_ONLY=1
 
     volumes:
-      # dispaly
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw                      ## mount x11 socket
+      # display
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw                       ## mount x11 socket
       - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.XAuthority:rw  ## x11 authorization
 
       # folder & file sync
-      - ../ws/:/root/ws:cache                                 ## source directory (backing up for saftey)
-      - ../.devcontainer/:/root/ws/.devcontainer:cache        ## devcontainer configs (for adding dependencies while installation)
-      - ../models/:/root/.gazebo/models:cache                 ## gazebo models (to add model faster)
+      - ../ws/:/root/ws:cache                                  ## source directory (backing up for saftey)
+      - ../.devcontainer/:/root/ws/.devcontainer:cache         ## devcontainer configs (for adding dependencies while installation)
+      - ../models/:/root/.gazebo/models:cache                  ## gazebo models (to add model faster)
+      - ../data/:/root/ws/data:cache                           ## for storing maps, pdfs, etc..

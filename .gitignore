@@ -12,5 +12,5 @@ ws/log/*
 
 ws/src/*
 
-ws/data/*
-!ws/data/.gitkeep
+data/*
+!data/.gitkeep
