@@ -1,16 +1,10 @@
 models/*
 !models/.gitkeep
 
-ws/build/*
-!ws/build/.gitkeep
-
-ws/install/*
-!ws/install/.gitkeep
-
-ws/log/*
-!ws/log/.gitkeep
-
-ws/src/*
-
 data/*
 !data/.gitkeep
+
+ws/*
+!ws/build/.gitkeep
+!ws/install/.gitkeep
+!ws/log/.gitkeep
