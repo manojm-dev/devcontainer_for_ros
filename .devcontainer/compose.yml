@@ -1,34 +1,43 @@
 services:
   ros2:
+    # Build Configuration
     build:
         context: .
         dockerfile: Dockerfile
 
-    # Interactive shell
-    stdin_open: true
-    tty: true
+    # Interactive Shell Settings
+    stdin_open: true   # Allow interaction via standard input (terminal).
+    tty: true          # Allocate a pseudo-TTY for an interactive shell to pervent termination of container with no long running process.
 
-    network_mode: host
+    # Network Mode Configuration
+    network_mode: host  # Utilize host network stack for seamless communication.
 
+    # Environment Variables
     environment:
-      # default shell
-      - SHELL=/bin/bash
+      # Display
+      - DISPLAY=$DISPLAY              # Specify X11 display server.
+      - XAUTHORITY=/root/.XAuthority  # Point to X11 authorization file location.
 
-      # for gui
-      - DISPLAY=$DISPLAY
-      - XAUTHORITY=/root/.XAuthority
+      - ROS_DOMAIN_ID=3               # Define ROS domain ID for communication.
+      - ROS_LOCALHOST_ONLY=1          # Restrict ROS communication to localhost.
 
-      # for ros2
-      - ROS_DOMAIN_ID=3
-      - ROS_LOCALHOST_ONLY=1
+    # Device Configuration
+    devices:
+      # GPU Devices
+      - /dev/dri/:/dev/dri/
+      # USB Devices
+      - /dev/ttyUSB0:/dev/ttyUSB0
 
+    # Volume Configuration
     volumes:
-      # display
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw                       ## mount x11 socket
-      - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.XAuthority:rw  ## x11 authorization
+      # Display
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw                        # Mounts X11 Socket.
+      - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.XAuthority:rw   # Mounts X11 Authorization file.
 
-      # folder & file sync
-      - ../ws/:/root/ws:cache                                  ## source directory (backing up for saftey)
-      - ../.devcontainer/:/root/ws/.devcontainer:cache         ## devcontainer configs (for adding dependencies while installation)
-      - ../models/:/root/.gazebo/models:cache                  ## gazebo models (to add model faster)
-      - ../data/:/root/ws/data:cache                           ## for storing maps, pdfs, etc..
+      # User Source file
+      - ../ws/:/root/ws:cache                           # Syncs the source Directory (ROS Workspace).
+      - ../.devcontainer/:/root/ws/.devcontainer:cache  # Mounts Devcontainer Configs.
+
+      # Models & Map file
+      - ../models/:/root/.gazebo/models:cache   # Mounts Gazebo Models to reduces initial loading time.
+      - ../data/:/root/ws/data:cache            # Mounts pdf, pgm, etc. files for viewing/edition in host system GUI tools.
