@@ -12,7 +12,7 @@ services:
     # Network Mode Configuration
     network_mode: host  # Utilize host network stack for seamless communication.
 
-    # Linux Capabities 
+    # Linux Capabilities
     cap_add:
       - SYS_PTRACE      # Allow process tracing capabilities for gpu accessing
 
