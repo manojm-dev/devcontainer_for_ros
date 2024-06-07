@@ -6,11 +6,15 @@ services:
         dockerfile: Dockerfile
 
     # Interactive Shell Settings
-    stdin_open: true   # Allow interaction via standard input (terminal).
-    tty: true          # Allocate a pseudo-TTY for an interactive shell to pervent termination of container with no long running process.
+    stdin_open: true    # Allow interaction via standard input (terminal).
+    tty: true           # Allocate a pseudo-TTY for an interactive shell to pervent termination of container with no long running process.
 
     # Network Mode Configuration
     network_mode: host  # Utilize host network stack for seamless communication.
+
+    # Linux Capabities 
+    cap_add:
+      - SYS_PTRACE      # Allow process tracing capabilities for gpu accessing
 
     # Environment Variables
     environment:
@@ -24,9 +28,10 @@ services:
     # Device Configuration
     devices:
       # GPU Devices
-      - /dev/dri/:/dev/dri/
+      - /dev/dri/card1:/dev/dri/card1
+      - /dev/dri/renderD128:/dev/dri/renderD128 
       # USB Devices
-      - /dev/ttyUSB0:/dev/ttyUSB0
+      #- /dev/ttyUSB0:/dev/ttyUSB0
 
     # Volume Configuration
     volumes:

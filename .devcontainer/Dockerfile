@@ -20,7 +20,8 @@ RUN apt install -y \
 
 ## Install ros2 tools
 RUN apt-get install -y \
-    gazebo\
+    #gazebo \
+    ignition-fortress \
     ~nros-humble-rqt*
 
 ## Install ros2_control
