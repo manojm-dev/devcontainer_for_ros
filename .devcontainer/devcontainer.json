@@ -1,12 +1,10 @@
 {
 	"name": "Nav2 Workspace",
-	"dockerComposeFile": ["compose.yml"],
+	"dockerComposeFile": ["docker-compose.yml"],
 	"service":"ros2",
 
 	"shutdownAction": "stopCompose",
-	"workspaceFolder": "/root/ws/",
-
-    "forwardPorts": [],
+	"workspaceFolder": "/root/ws/src",
 
 	"customizations": {
 		"vscode": {
@@ -18,5 +16,5 @@
 			]
 		}
 	},
-	"postCreateCommand": "rosdep install --from-paths src --ignore-src --rosdistro humble -y && colcon build --symlink-install && echo 'source /root/ws/install/setup.bash' >> ~/.bashrc"
+	"postCreateCommand": "cd /root/ws/ && rosdep install --from-paths src --ignore-src --rosdistro humble -y && colcon build --symlink-install && echo 'source /root/ws/install/setup.bash' >> ~/.bashrc"
 }

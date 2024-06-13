@@ -3,7 +3,7 @@ services:
     # Build Configuration
     build:
         context: .
-        dockerfile: Dockerfile
+        dockerfile: dockerfile
 
     # Interactive Shell Settings
     stdin_open: true    # Allow interaction via standard input (terminal).
