@@ -1,10 +1,14 @@
 models/*
-!models/.gitkeep
-
 data/*
 !data/.gitkeep
+!models/.gitkeep
 
-ws/*
+ws/build/*
+ws/install/*
+ws/log/*
+ws/src/*
 !ws/build/.gitkeep
 !ws/install/.gitkeep
 !ws/log/.gitkeep
+
+.vscode/
