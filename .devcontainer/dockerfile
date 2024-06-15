@@ -77,5 +77,5 @@ RUN /opt/venv/bin/pip install \
 
 ## rqt
 RUN /opt/venv/bin/pip3 install \
-    pyyaml packaging 
+    pyyaml packaging netifaces
 
