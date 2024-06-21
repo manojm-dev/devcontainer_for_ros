@@ -4,13 +4,13 @@ services:
 
     # Get docker image file
 
-    ## 1)From images
-    # image:
+    # 1)From images
+    image: manojm003/ros:humble-nav2
 
-    ## 2)From dockerfile
-    build:
-        context: .
-        dockerfile: dockerfile
+    # ## 2)From dockerfile
+    # build:
+    #     context: .
+    #     dockerfile: dockerfile
 
     # Interactive Shell Settings
     stdin_open: true    # Allow interaction via standard input (terminal).
