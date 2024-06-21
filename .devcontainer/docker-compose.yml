@@ -1,6 +1,13 @@
 services:
   ros2:
     # Build Configuration
+
+    # Get docker image file
+
+    ## 1)From images
+    # image:
+
+    ## 2)From dockerfile
     build:
         context: .
         dockerfile: dockerfile
