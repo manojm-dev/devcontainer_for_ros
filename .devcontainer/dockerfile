@@ -1,7 +1,12 @@
 FROM osrf/ros:humble-desktop-full
 
+<<<<<<< HEAD
 # Setting shell to bash to prevent unaccepted behaviour
 SHELL [ "/bin/bash","-c" ]
+=======
+# Setting shell to bash to prevent unaccepted behaviours
+SHELL [ "/bin/bash","-c" ] 
+>>>>>>> 38d4bb4 (test)
 
 # ENVIRONMENT VARIABLES
 
