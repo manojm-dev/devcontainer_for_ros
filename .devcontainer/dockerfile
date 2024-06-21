@@ -11,37 +11,38 @@ ENV DEBIAN_FRONTEND=noninteractive
 ## Setup virutal env 
 RUN mkdir /opt/venv && \
     apt update && apt upgrade -y && \
-    apt install -y \
-    python3-pip && \
-    pip install virtualenv && \
+    apt install python3-virtualenv -y && \
     virtualenv /opt/venv && \
-    export PATH="/opt/venv/bin:$PATH"
+    export PATH=/opt/venv/bin:$PATH
 
 ## Install Basic Tools
-RUN apt update && \
-    apt install -y \
+RUN apt install \
     nano \
     curl \
     tmux \
-    ros-dev-tools
+    ros-dev-tools \
+    -y
 
-## Install ros2 tools
-RUN apt update && \
-    apt install -y \
+## Install Simulation tools
+RUN apt install \
     gazebo \
     ignition-fortress \
-    ~nros-$ROS_DISTRO-rqt*
+    -y
+
+## Install visualization tools(rviz2 already installed)
+RUN apt install \
+    ros-$ROS_DISTRO-rviz2 \
+    ~nros-$ROS_DISTRO-rqt* \
+    -y
 
 ## Install ros2_control
-RUN apt update && \
-    apt install -y \
+RUN apt install -y \
     ros-$ROS_DISTRO-ros2-control \
     ros-$ROS_DISTRO-ros2-controllers \
     ros-$ROS_DISTRO-gazebo-ros2-control
     
 ## Install localization pkgs
-RUN apt update && \
-    apt install -y \
+RUN apt install -y \
     ros-$ROS_DISTRO-robot-localization 
 
 ## Install nav2
@@ -84,4 +85,3 @@ RUN /opt/venv/bin/pip install \
 ## rqt
 RUN /opt/venv/bin/pip3 install \
     pyyaml packaging netifaces
-

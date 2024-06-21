@@ -27,17 +27,20 @@ services:
 
     # Device Configuration
     devices:
-      # GPU Devices
-      - /dev/dri/card1:/dev/dri/card1
-      - /dev/dri/renderD128:/dev/dri/renderD128 
       # USB Devices
-      #- /dev/ttyUSB0:/dev/ttyUSB0
+      # - /dev/ttyUSB0:/dev/ttyUSB0
+
+      # Arduino
+      # - /dev/ACM0:/dev/ACM0
 
     # Volume Configuration
     volumes:
       # Display
       - /tmp/.X11-unix:/tmp/.X11-unix:rw                        # Mounts X11 Socket.
       - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.XAuthority:rw   # Mounts X11 Authorization file.
+
+      # Graphics card
+      - /dev/dri/:/dev/dri/
 
       # User Source file
       - ../ws/:/root/ws:cache                               # Syncs the source Directory (ROS Workspace).
