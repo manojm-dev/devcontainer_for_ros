@@ -4,9 +4,13 @@ on:
   push:
     branches:
       humble
+    paths:
+      - .devcontainer/dockerfile
   pull_request:
     branches:
       humble
+    paths:
+      - .devcontainer/dockerfile
 
 jobs:
   docker:
