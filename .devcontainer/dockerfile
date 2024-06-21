@@ -2,9 +2,14 @@ FROM osrf/ros:humble-desktop-full
 
 SHELL [ "/bin/bash","-c" ]
 
-# Environment variables
-ENV ROS_DISTRO=humble
+# ENVIRONMENT VARIABLES
+
+## system
 ENV DEBIAN_FRONTEND=noninteractive
+
+## ros
+ENV ROS_DISTRO=humble
+
 
 # INSTALLING PKGS
 
