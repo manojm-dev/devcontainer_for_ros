@@ -1,5 +1,6 @@
 FROM osrf/ros:humble-desktop-full
 
+# Setting shell to bash to prevent unaccepted behaviours
 SHELL [ "/bin/bash","-c" ]
 
 # ENVIRONMENT VARIABLES
