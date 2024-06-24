@@ -1,20 +1,20 @@
-# Navigation2 Devcontainer 
+# Devcontainer Setup for Navigation2
 This repository contains a development container setup for the Nav2 (Navigation2) environment, facilitating an easy and consistent setup for development.
 
 ## Table of Contents
-- Prerequisites
-- Setup Instructions
-- Usage
-- Configuration
-- Contributing
-- License
+- [Prerequisites](#Prerequisites)
+- [Setup Instructions](#SetupInstructions)
+- [Usage](#Usage)
+- [Configuration](#Configuration)
+- [Contributing](#Contributing)
+- [License](#License)
 
 ## Prerequisites
 Before you begin, ensure you have the following installed:
 
-- Docker
-- Visual Studio Code
-- Visual Studio Code Remote - Containers extension
+- [Docker](https://docs.docker.com/get-docker/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Visual Studio Code Dev Containers - extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 ## Setup Instructions
 1) Clone the repository
@@ -26,7 +26,7 @@ Before you begin, ensure you have the following installed:
 2) Create Source dir
    ```
    mkdir -p ws/src
-   (or)
+   # Or clone the example repository
    git clone https://github.com/example.repo ws/src
    ```
 3) Open the repository in vscode
@@ -50,20 +50,20 @@ The Dockerfile defines the environment, including the base image and any additio
 The devcontainer.json file configures VS Code's settings and extensions.
 
 ### [compose.yaml](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/docker-compose.yml)
-The compose.yaml file configures container-specific settings. By default is uses my docker images uploaded in docker hub, if you wish that docker image to be build locally you may configure it in compose.yaml by.
+The compose.yaml file configures container-specific settings. By default, it uses Docker images uploaded to Docker Hub. If you wish to build the Docker image locally, you may configure it in compose.yaml by following these steps:
+
+1) Comment out the line for the pre-built image:
 ```
-step1:
-# commenting this line by adding '#' before it
    # 1)From images
 -> image: manojm003/ros:humble-nav2
+```
 
-step2:
-# and uncommenting these lines removing '#' before it
+2) Uncomment the lines to build from the Dockerfile:
+```
    # 2)From dockerfile
 -> # build:
 -> #     context: .
 -> #     dockerfile: dockerfile
-
 ```
 ## Contributing
 Contributions are welcome! Please fork the repository and use a feature branch. Pull requests are reviewed actively.
