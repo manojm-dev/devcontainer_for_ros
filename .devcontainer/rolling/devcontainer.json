@@ -1,0 +1,19 @@
+{
+	"name": "Rolling Nav2",
+	"dockerComposeFile": ["compose.yml"],
+	"service":"ros2",
+
+	"shutdownAction": "stopCompose",
+	"workspaceFolder": "/opt/underlay_ws/src",
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"eamodio.gitlens",
+				"ms-iot.vscode-ros",
+				"ms-azuretools.vscode-docker"
+			]
+		}
+	}
+}

@@ -50,8 +50,8 @@ services:
       - /dev/dri/:/dev/dri/                                 # Mounting graphic card interfaces
 
       # User Source file
-      - ../ws/:/root/ws:cache                               # Syncs the source Directory (ROS Workspace).
+      - ../../ws/:/root/ws:cache                               # Syncs the source Directory (ROS Workspace).
 
       # Models & Map file
-      - ../models/:/root/.gazebo/models:cache   # Mounts Gazebo Models to reduces initial loading time.
-      - ../data/:/root/ws/data:cache            # Mounts pdf, pgm, etc. files for viewing/edition in host system GUI tools.
+      - ../../models/:/root/.gazebo/models:cache   # Mounts Gazebo Models to reduces initial loading time.
+      - ../../data/:/root/ws/data:cache            # Mounts pdf, pgm, etc. files for viewing/edition in host system GUI tools.

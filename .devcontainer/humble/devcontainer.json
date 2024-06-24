@@ -1,5 +1,5 @@
 {
-	"name": "Nav2 Workspace",
+	"name": "Humble Nav2",
 	"dockerComposeFile": ["compose.yml"],
 	"service":"ros2",
 

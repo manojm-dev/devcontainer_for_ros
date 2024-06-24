@@ -29,11 +29,10 @@ RUN apt install \
     ros-dev-tools \
     -y
 
-## Install Simulation tools(now using classic gazebo)
+## Install Simulation tools(classic gazebo, ros2_control plugin, ...)
 RUN apt install \
     gazebo \
     ros-$ROS_DISTRO-gazebo-ros2-control \
-    #ignition-fortress \
     -y
 
 ## Install visualization tools(rviz2 already installed)
