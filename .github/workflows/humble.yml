@@ -5,13 +5,13 @@ on:
     branches:
       - humble
     paths:
-      - .github/workflows/build.yml
+      - .github/workflows/humble.yml
       - .devcontainer/dockerfile
   pull_request:
     branches:
       - humble
     paths:
-      - .github/workflows/build.yml
+      - .github/workflows/humble.yml
       - .devcontainer/dockerfile
 
 jobs:

@@ -21,7 +21,7 @@ RUN mkdir /opt/venv && \
     virtualenv /opt/venv && \
     export PATH=/opt/venv/bin:$PATH
 
-## Install Basic Tools
+## Install Basic Tools & Dev tools(cmake, git, python3, python3-setuptools, python-bloom, python3-colcon-extensions, python3-rosdep, python3-vcstool, wget)
 RUN apt install \
     nano \
     curl \
@@ -32,6 +32,7 @@ RUN apt install \
 ## Install Simulation tools(now using classic gazebo)
 RUN apt install \
     gazebo \
+    ros-$ROS_DISTRO-gazebo-ros2-control \
     #ignition-fortress \
     -y
 
@@ -44,8 +45,7 @@ RUN apt install \
 ## Install ros2_control
 RUN apt install -y \
     ros-$ROS_DISTRO-ros2-control \
-    ros-$ROS_DISTRO-ros2-controllers \
-    ros-$ROS_DISTRO-gazebo-ros2-control
+    ros-$ROS_DISTRO-ros2-controllers 
     
 ## Install localization pkgs
 RUN apt install -y \
