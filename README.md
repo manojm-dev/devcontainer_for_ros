@@ -63,7 +63,7 @@ The compose.yaml file configures container-specific settings. By default, it use
    # 2)From dockerfile
 -> # build:
 -> #     context: .
--> #     dockerfile: dockerfile
+-> #     dockerfile: Dockerfile
 ```
 ## 5. Contributing
 Contributions are welcome! Please fork the repository and use a feature branch. Pull requests are reviewed actively.
