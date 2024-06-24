@@ -3,13 +3,13 @@ name: Humble_Nav2
 on:
   push:
     branches:
-      humble
+      - humble
     paths:
       - .github/workflows/humble.yml
       - .devcontainer/dockerfile
   pull_request:
     branches:
-      humble
+      - humble
     paths:
       - .github/workflows/humble.yml
       - .devcontainer/dockerfile
