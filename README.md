@@ -9,14 +9,14 @@ This repository contains a development container setup for the Nav2 (Navigation2
 - [Contributing](#Contributing)
 - [License](#License)
 
-## Prerequisites
+## 1. Prerequisites
 Before you begin, ensure you have the following installed:
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Visual Studio Code Dev Containers - extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-## Setup Instructions
+## 2. Setup Instructions
 1) Clone the repository
    ```
    git clone https://github.com/manojm-dev/nav2-devcontainer.git nav_ws
@@ -37,19 +37,19 @@ Before you begin, ensure you have the following installed:
    - Click on reopen in container when asked
    - If not asked or it faded then, press `ctr + shift + p` then type `Dev Container: Rebuild and Reopen in container`
      
-## Usage
+## 3. Usage
 Once the container is up and running, you can start working with the Nav2 environment. The container includes all necessary dependencies and tools pre-installed.
 
-## Configuration
+## 4. Configuration
 The development container configuration is defined in the .devcontainer folder. You can customize the Dockerfile and devcontainer.json to fit your specific needs.
 
-### [Dockerfile](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/devcontainer.json)
+### [i)Dockerfile](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/devcontainer.json)
 The Dockerfile defines the environment, including the base image and any additional dependencies.
 
-### [devcontainer.json](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/devcontainer.json)
+### [ii)devcontainer.json](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/devcontainer.json)
 The devcontainer.json file configures VS Code's settings and extensions.
 
-### [compose.yaml](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/docker-compose.yml)
+### [iii)compose.yaml](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/docker-compose.yml)
 The compose.yaml file configures container-specific settings. By default, it uses Docker images uploaded to Docker Hub. If you wish to build the Docker image locally, you may configure it in compose.yaml by following these steps:
 
 1) Comment out the line for the pre-built image:
@@ -65,7 +65,7 @@ The compose.yaml file configures container-specific settings. By default, it use
 -> #     context: .
 -> #     dockerfile: dockerfile
 ```
-## Contributing
+## 5. Contributing
 Contributions are welcome! Please fork the repository and use a feature branch. Pull requests are reviewed actively.
 
 - Fork the repository
@@ -75,5 +75,5 @@ Contributions are welcome! Please fork the repository and use a feature branch. 
 - Push to the branch (git push origin feature-branch)
 - Create a new Pull Request
 
-## License
+## 6. License
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/LICENSE) file for details.
