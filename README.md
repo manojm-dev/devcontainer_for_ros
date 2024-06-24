@@ -20,7 +20,6 @@ Before you begin, ensure you have the following installed:
 1) Clone the repository
    ```
    git clone https://github.com/manojm-dev/nav2-devcontainer.git nav_ws
-   git checkout humble
    cd nav_ws
    ```
 2) Create Source dir
@@ -36,6 +35,7 @@ Before you begin, ensure you have the following installed:
 4) Reopen in container
    - Click on reopen in container when asked
    - If not asked or it faded then, press `ctr + shift + p` then type `Dev Container: Rebuild and Reopen in container`
+   - Select Humble Nav2 or Rolling Nav2 as per your wish.
      
 ## 3. Usage
 Once the container is up and running, you can start working with the Nav2 environment. The container includes all necessary dependencies and tools pre-installed.
@@ -43,13 +43,13 @@ Once the container is up and running, you can start working with the Nav2 enviro
 ## 4. Configuration
 The development container configuration is defined in the .devcontainer folder. You can customize the Dockerfile and devcontainer.json to fit your specific needs.
 
-### [i)Dockerfile](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/devcontainer.json)
+### i) Dockerfile
 The Dockerfile defines the environment, including the base image and any additional dependencies.
 
-### [ii)devcontainer.json](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/devcontainer.json)
+### ii) devcontainer.json
 The devcontainer.json file configures VS Code's settings and extensions.
 
-### [iii)compose.yaml](https://github.com/manojm-dev/nav2-devcontainer/blob/humble/.devcontainer/docker-compose.yml)
+### iii)compose.yaml 
 The compose.yaml file configures container-specific settings. By default, it uses Docker images uploaded to Docker Hub. If you wish to build the Docker image locally, you may configure it in compose.yaml by following these steps:
 
 1) Comment out the line for the pre-built image:
