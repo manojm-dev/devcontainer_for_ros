@@ -2,12 +2,12 @@
 This repository contains a development container setup for the Nav2 (Navigation2) environment, facilitating an easy and consistent setup for development.
 
 ## Table of Contents
-- [Prerequisites](#Prerequisites)
-- [Setup Instructions](#SetupInstructions)
-- [Usage](#Usage)
-- [Configuration](#Configuration)
-- [Contributing](#Contributing)
-- [License](#License)
+- [Prerequisites](#1-prerequisites)
+- [Setup Instructions](#2-setup-instructions)
+- [Usage](#3-usage)
+- [Configuration](#4-configuration)
+- [Contributing](#5-contributing)
+- [License](#6-license)
 
 ## 1. Prerequisites
 Before you begin, ensure you have the following installed:
