@@ -1,6 +1,6 @@
 {
 	"name": "Nav2 Workspace",
-	"dockerComposeFile": ["docker-compose.yml"],
+	"dockerComposeFile": ["compose.yml"],
 	"service":"ros2",
 
 	"shutdownAction": "stopCompose",

@@ -10,7 +10,7 @@ services:
     # 2)From dockerfile
     # build:
     #     context: .
-    #     dockerfile: dockerfile
+    #     dockerfile: Dockerfile
 
     # Interactive Shell Settings
     stdin_open: true    # Allow interaction via standard input (terminal).
