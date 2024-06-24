@@ -5,13 +5,13 @@ on:
     branches:
       - humble
     paths:
-      - .github/workflows/humble.yml
+      - .github/workflows/build.yml
       - .devcontainer/dockerfile
   pull_request:
     branches:
       - humble
     paths:
-      - .github/workflows/humble.yml
+      - .github/workflows/build.yml
       - .devcontainer/dockerfile
 
 jobs:
@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: .devcontainer/dockerfile
+          file: .devcontainer/Dockerfile
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
