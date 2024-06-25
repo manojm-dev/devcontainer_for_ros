@@ -4,6 +4,8 @@ services:
     # Network Mode Configuration
     network_mode: host    # Utilize host network stack for seamless communication.
 
+    tty: true
+
     # Linux Capabilities
     cap_add:
       - SYS_PTRACE        # Allow process tracing capabilities used for debugging, accessing gpu.
@@ -33,14 +35,3 @@ services:
 
       # User Source file
       - ../../src/:/root/ws/src:cached  # Syncs the source Directory.
-
-      # # Usb devices
-      # - /dev:/dev                     # Mouting all devices temporarily(pocess security risk)
-
-    # # Device Configuration
-    # devices:
-    #   # USB Devices
-    #   #- /dev/ttyUSB0:/dev/ttyUSB0
-
-    #   # Arduino
-    #   #- /dev/ACM0:/dev/ACM0

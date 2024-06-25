@@ -11,6 +11,3 @@ services:
       args:
         ROS_DISTRO: humble
         BASE_IMAGE: osrf/ros:humble-desktop-full
-        USERNAME: $USER
-        USER_UID: 1000
-        USER_GID: 1000

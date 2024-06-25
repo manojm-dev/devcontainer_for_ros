@@ -11,6 +11,3 @@ services:
       args:
         ROS_DISTRO: rolling
         BASE_IMAGE: osrf/ros:rolling-desktop-full
-        USERNAME: $USER
-        USER_UID: 1000
-        USER_GID: 1000
