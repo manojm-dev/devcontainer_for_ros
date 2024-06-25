@@ -1,10 +1,10 @@
 {
-	"name": "Rolling Nav2",
+	"name": "ROS2 Workspace: Rolling",
 	"dockerComposeFile": ["compose.yml"],
 	"service":"ros2",
 
 	"shutdownAction": "stopCompose",
-	"workspaceFolder": "/opt/underlay_ws/src",
+	"workspaceFolder": "/root/ws/src",
 
 	"customizations": {
 		"vscode": {

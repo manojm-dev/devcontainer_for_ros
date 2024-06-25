@@ -1,5 +1,5 @@
 {
-	"name": "Humble Nav2",
+	"name": "ROS2 Workspace: Humble",
 	"dockerComposeFile": ["compose.yml"],
 	"service":"ros2",
 
@@ -15,6 +15,5 @@
 				"ms-azuretools.vscode-docker"
 			]
 		}
-	},
-	"postCreateCommand": "cd /root/ws/ && rosdep install --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y && colcon build --symlink-install && echo 'source /root/ws/install/setup.bash' >> ~/.bashrc"
+	}
 }

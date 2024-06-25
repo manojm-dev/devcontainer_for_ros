@@ -1,52 +1,16 @@
 services:
   ros2:
-    # Build Configuration
+    extends:
+      file: ../common/compose.yml
+      service: ros2-common
 
-    # Get docker image file
-
-    # 1)From images
-    image: ghcr.io/ros-navigation/navigation2:main-1.2.0
-
-    # 2)From dockerfile
-    # build:
-    #     context: .
-    #     dockerfile: Dockerfile
-
-    # Interactive Shell Settings
-    stdin_open: true    # Allow interaction via standard input (terminal).
-    tty: true           # Allocate a pseudo-TTY for an interactive shell to pervent termination of container with no long running process.
-
-    # Network Mode Configuration
-    network_mode: host  # Utilize host network stack for seamless communication.
-
-    # Linux Capabilities
-    cap_add:
-      - SYS_PTRACE      # Allow process tracing capabilities for gpu accessing
-
-    # Environment Variables
-    environment:
-      # Display
-      - DISPLAY=$DISPLAY              # Specify X11 display server.
-      - XAUTHORITY=/root/.XAuthority  # Point to X11 authorization file location.
-
-      - ROS_DOMAIN_ID=3               # Define ROS domain ID for communication.
-      - ROS_LOCALHOST_ONLY=1          # Restrict ROS communication to localhost.
-
-    # Device Configuration
-    #devices:
-      # USB Devices
-      #- /dev/ttyUSB0:/dev/ttyUSB0
-
-      # Arduino
-      #- /dev/ACM0:/dev/ACM0
-
-    # Volume Configuration
-    volumes:
-      # Display
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw                        # Mounts X11 Socket.
-      - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.XAuthority:rw   # Mounts X11 Authorization file.
-
-      # Graphics card
-      - /dev/dri/:/dev/dri/                                 # Mounting graphic card interfaces
-
-      - /dev/:/dev/
+    build:
+      context: .
+      dockerfile: ../common/Dockerfile
+      target: base
+      args:
+        ROS_DISTRO: rolling
+        BASE_IMAGE: osrf/ros:rolling-desktop-full
+        USERNAME: $USER
+        USER_UID: 1000
+        USER_GID: 1000
