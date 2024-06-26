@@ -1,7 +1,7 @@
 services:
   ros2:
     extends:
-      file: ../common/compose.yml
+      file: ../common/common-compose.yml
       service: ros2-common
 
     build:
