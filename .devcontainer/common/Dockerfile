@@ -70,5 +70,3 @@ RUN echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> ~/.bashrc && \
     echo 'export PATH=/opt/venv/bin:$PATH' >> ~/.bashrc && \
     echo 'source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash' >> ~/.bashrc && \
     echo 'source ~/ws/src/install/setup.bash' >> ~/.bashrc
-
-ENTRYPOINT ["/bin/bash"]

@@ -4,8 +4,6 @@ services:
     # Network Mode Configuration
     network_mode: host    # Utilize host network stack for seamless communication.
 
-    tty: true
-
     # Linux Capabilities
     cap_add:
       - SYS_PTRACE        # Allow process tracing capabilities used for debugging, accessing gpu.
@@ -35,3 +33,5 @@ services:
 
       # User Source file
       - ../../src/:/root/ws/src:cached  # Syncs the source Directory.
+
+    command: sleep infinity
