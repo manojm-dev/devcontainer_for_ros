@@ -1,13 +1,11 @@
 services:
-  ros2:
-    extends:
-      file: ../common/common-compose.yml
-      service: ros2-common
 
-    build:
-      context: .
-      dockerfile: ../common/Dockerfile
-      target: base
-      args:
-        ROS_DISTRO: humble
-        BASE_IMAGE: osrf/ros:humble-desktop-full
+  base:
+    extends:
+      file: ../common/compose.yml
+      service: common-base
+  
+  common-dev:
+    extends:
+      file: ../common/compose.yml
+      service: common-dev

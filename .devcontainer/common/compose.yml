@@ -1,0 +1,60 @@
+services:
+
+  common-base: 
+    # Setting Image Name
+    image: ${PROJECT_NAME}-base:${ROS_DISTRO}
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - ROS_DISTRO=${ROS_DISTRO}
+        - BASE_IMAGE=${BASE_IMAGE}
+        - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
+        - USERNAME=${USERNAME}
+        - USER_UID=${USER_UID}
+        - USER_GID=${USER_GID}
+        - WORKSPACE_DIR=${WORKSPACE_DIR}
+      target: base
+    command: sleep infinity
+
+
+  common-dev:
+    # Setting Image Name
+    image: ${PROJECT_NAME}-base:${ROS_DISTRO}
+    
+    # Network Mode Configuration
+    network_mode: host                        # Utilize host network stack for seamless communication.
+    hostname: ${PROJECT_NAME}-${ROS_DISTRO}
+    ipc: host
+
+    # Linux Capabilities
+    cap_add:
+      - SYS_PTRACE                            # Allow process tracing capabilities used for debugging, accessing gpu.
+
+    # Security Options
+    security_opt:
+    - seccomp:unconfined                      # Disable Seccomp filtering to allow all system calls for toosl like gdb
+
+    # Environment Variables
+    environment:
+      # Display
+      - DISPLAY=${DISPLAY}                    # Specify X11 display server.
+      - QT_X11_NO_MITSHM=1
+
+      # ROS
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}        # Define ROS domain ID for communication.
+
+    # Volume Configuration
+    volumes:
+      # Display
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw                        # Mounts X11 Socket.
+      - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.XAuthority:rw   # Mounts X11 Authorization file.
+
+      # User Source file
+      - ../../src/:$HOME/${WORKSPACE_DIR}/src:cached        # Syncs the source Directory.
+
+    devices:
+      # Graphics card
+      - /dev/dri/:/dev/dri/                   # Mounting graphic card interfaces.
+
+    command: sleep infinity
