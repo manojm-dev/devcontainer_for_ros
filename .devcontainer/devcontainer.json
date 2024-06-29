@@ -1,7 +1,7 @@
 {
 	"name": "ROS2 Workspace(humble)",
 	"dockerComposeFile": ["compose.yml"],
-	"service":"base",
+	"service":"ros",
 
 	"shutdownAction": "stopCompose",
 	"workspaceFolder": "/home/develop/workspace/src",

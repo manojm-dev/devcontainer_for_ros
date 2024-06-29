@@ -1,8 +1,6 @@
 services:
 
-  common-base: 
-    # Setting Image Name
-    image: ${PROJECT_NAME}-base:${ROS_DISTRO}
+  ros:
     build: 
       context: .
       dockerfile: Dockerfile
@@ -14,17 +12,10 @@ services:
         - USER_UID=${USER_UID}
         - USER_GID=${USER_GID}
         - WORKSPACE_DIR=${WORKSPACE_DIR}
-      target: base
-    command: sleep infinity
-
-
-  common-dev:
-    # Setting Image Name
-    image: ${PROJECT_NAME}-base:${ROS_DISTRO}
+      target: ros
     
     # Network Mode Configuration
     network_mode: host                        # Utilize host network stack for seamless communication.
-    hostname: ${PROJECT_NAME}-${ROS_DISTRO}
     ipc: host
 
     # Linux Capabilities
@@ -37,6 +28,9 @@ services:
 
     # Environment Variables
     environment:
+      # Shell
+      - SHELL=/bin/bash
+      
       # Display
       - DISPLAY=${DISPLAY}                    # Specify X11 display server.
       - QT_X11_NO_MITSHM=1

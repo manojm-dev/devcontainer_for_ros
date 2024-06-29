@@ -2,14 +2,15 @@ ARG BASE_IMAGE
 ##################################
 ######## ROS2 IMAGE ##############
 ##################################
-FROM ${BASE_IMAGE} as base
+FROM ${BASE_IMAGE} as ros
 
 # Docker arguments
+ARG ROS_DISTRO=
+ARG RMW_IMPLEMENTATION=
 ARG USERNAME=
 ARG USER_UID=
 ARG USER_GID=
 ARG WORKSPACE_DIR=
-ARG RMW_IMPLEMENTATION=
 
 
 # Setting shell to bash and apt in non-interactive mode
@@ -25,7 +26,8 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 USER ${USERNAME}
 
 # Creating Workspace
-RUN mkdir -p $HOME/${WORKSPACE_DIR}
+RUN mkdir -p ${WORKSPACE_DIR}/src
+
 
 # INSTALLING PKGS
 
