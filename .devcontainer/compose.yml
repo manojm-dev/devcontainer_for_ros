@@ -7,12 +7,13 @@ services:
       args:
         - ROS_DISTRO=${ROS_DISTRO}
         - BASE_IMAGE=${BASE_IMAGE}
+        - TARGET_LAYER=${TARGET_LAYER}
         - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
         - USERNAME=${USERNAME}
         - USER_UID=${USER_UID}
         - USER_GID=${USER_GID}
         - WORKSPACE_DIR=${WORKSPACE_DIR}
-      target: ros
+      target: dev
     
     # Network Mode Configuration
     network_mode: host                        # Utilize host network stack for seamless communication.

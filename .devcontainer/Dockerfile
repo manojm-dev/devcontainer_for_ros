@@ -1,21 +1,25 @@
 ARG BASE_IMAGE
+ARG TARGET_LAYER
+
 ##################################
 ######## ROS2 IMAGE ##############
 ##################################
 FROM ${BASE_IMAGE} as ros
 
-# Docker arguments
-ARG ROS_DISTRO=
-ARG RMW_IMPLEMENTATION=
-ARG USERNAME=
-ARG USER_UID=
-ARG USER_GID=
-ARG WORKSPACE_DIR=
-
+# Docker Arguments
+ARG ROS_DISTROs
+ARG RMW_IMPLEMENTATION
+ARG USERNAME
+ARG USER_UID
+ARG USER_GID
+ARG WORKSPACE_DIR
 
 # Setting shell to bash and apt in non-interactive mode
 SHELL ["/bin/bash", "-c"]
+
+# Environment variables
 ENV DEBIAN_FRONTEND=noninteractive
+ENV WORKSPACE_DIR=${WORKSPACE_DIR}
 
 # Create the user and login
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
@@ -59,7 +63,7 @@ RUN python3 -m pip install \
 ## adding source to bashrc
 RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
     echo 'source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash' >> ~/.bashrc && \
-    echo 'source ${WORKSPACE_DIR}/src/install/setup.bash' >> ~/.bashrc
+    echo 'source ${WORKSPACE_DIR}/install/setup.bash' >> ~/.bashrc
 
 
 
@@ -77,3 +81,24 @@ RUN sudo apt update && sudo apt upgrade -y
 RUN sudo apt install -y \
     ros-${ROS_DISTRO}-navigation2 \
     ros-${ROS_DISTRO}-nav2-bringup
+
+
+
+##################################
+######## NAV2 IMAGE ##############
+##################################
+FROM ${TARGET_LAYER} as dev
+
+# INSTALLING PKGS
+
+## Updating packages
+RUN sudo apt update && sudo apt upgrade -y
+
+## Installing terminal tools
+RUN sudo apt install -y \
+    bash-completion \
+    tmux
+
+## Debugging tools
+RUN sudo apt install -y \
+    gdb
