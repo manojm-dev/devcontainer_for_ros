@@ -2,6 +2,16 @@
     "version": "2.0.0",
     "tasks": [
         {
+          "label": "import packages",
+          "detail": "Import dependencies with vcs tool.",
+          "type": "shell",
+          "command": "vcs import < packages.repos",
+          "options": {
+            "cwd": "${env:WORKSPACE_DIR}/src"
+          },
+          "problemMatcher": []
+        },
+        {
             "label": "install dependencies",
             "detail": "Install all dependencies specified in the workspaces package.xml files.",
             "type": "shell",
