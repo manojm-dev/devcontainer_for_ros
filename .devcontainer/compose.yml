@@ -54,6 +54,7 @@ services:
 
     devices:
       # Graphics card
-      - /dev/dri/:/dev/dri/                   # Mounting graphic card interfaces.
+      - /dev/dri/card1:/dev/dri/card1                  # Mounting graphic card interfaces.
+      - /dev/dri/renderD128:/dev/dri/renderD128
 
     command: sleep infinity
