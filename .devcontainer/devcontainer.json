@@ -1,5 +1,5 @@
 {
-	"name": "ROS2 Workspace(humble)",
+	"name": "ROS Workspace",
 	"dockerComposeFile": ["compose.yml"],
 	"service":"ros",
 
