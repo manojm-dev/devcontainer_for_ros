@@ -52,9 +52,6 @@ services:
       # User Source file
       - ../src/:${WORKSPACE_DIR}/src:cached     # Syncs the source Directory.
 
-      # VSCode configurations
-      - ../.vscode:${WORKSPACE_DIR}/src/.vscode # Mount vscode configs
-
     devices:
       # Graphics card
       - /dev/dri/:/dev/dri/                   # Mounting graphic card interfaces.
