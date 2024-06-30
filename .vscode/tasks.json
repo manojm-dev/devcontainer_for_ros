@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "install dependencies",
+            "detail": "Install all dependencies specified in the workspaces package.xml files.",
+            "type": "shell",
+            "command": "sudo apt-get update -y && rosdep update && rosdep install --from-paths src --ignore-src -y",
+            "options": {
+              "cwd": "${env:WORKSPACE_DIR}"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build",
+            "detail": "Build the workspace (release).",
+            "type": "shell",
+            "command": "colcon build --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=Release' -Wall -Wextra -Wpedantic",
+            "options": {
+              "cwd": "${env:WORKSPACE_DIR}"
+            },
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "test",
+            "detail": "Run all unit tests and show results.",
+            "type": "shell",
+            "command": "colcon test",
+            "options": {
+              "cwd": "${env:WORKSPACE_DIR}"
+            },
+            "group": {
+              "kind": "test",
+              "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "purge",
+            "detail": "Purge workspace by deleting all generated files.",
+            "type": "shell",
+            "command": "rm -fr build install log && py3clean .",
+            "options": {
+              "cwd": "${env:WORKSPACE_DIR}"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

@@ -34,6 +34,7 @@ services:
       
       # Display
       - DISPLAY=${DISPLAY}                    # Specify X11 display server.
+      - XAUTHORITY=${USER_DIR}/.Xauthority
       - QT_X11_NO_MITSHM=1
 
       # ROS
@@ -42,11 +43,17 @@ services:
     # Volume Configuration
     volumes:
       # Display
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw                        # Mounts X11 Socket.
-      - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.XAuthority:rw   # Mounts X11 Authorization file.
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw                              # Mounts X11 Socket.
+      - ${XAUTHORITY:-$HOME/.Xauthority}:${USER_DIR}/.Xauthority:rw   # Mounts X11 Authorization file.
+
+      # SSH
+      - ${HOME}/.ssh/:${USER_DIR}/.ssh/         # Mount ssh keys
 
       # User Source file
-      - ../../src/:$HOME/${WORKSPACE_DIR}/src:cached        # Syncs the source Directory.
+      - ../src/:${WORKSPACE_DIR}/src:cached     # Syncs the source Directory.
+
+      # VSCode configurations
+      - ../.vscode:${WORKSPACE_DIR}/src/.vscode # Mount vscode configs
 
     devices:
       # Graphics card
