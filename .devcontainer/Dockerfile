@@ -63,7 +63,8 @@ RUN python3 -m pip install \
 ## adding source to bashrc
 RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
     echo 'source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash' >> ~/.bashrc && \
-    echo 'source ${WORKSPACE_DIR}/install/setup.bash' >> ~/.bashrc
+    echo 'source ${WORKSPACE_DIR}/install/setup.bash' >> ~/.bashrc && \
+    echo 'alias sourcews=${WORKSPACE_DIR}/install/setup.bash' >> ~/.bashrc
 
 
 

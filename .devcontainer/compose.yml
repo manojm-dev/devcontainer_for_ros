@@ -17,11 +17,11 @@ services:
     
     # Network Mode Configuration
     network_mode: host                        # Utilize host network stack for seamless communication.
-    ipc: host
+    ipc: host                                 # Shared memory transport with host, e.g. rviz GUIs
 
     # Linux Capabilities
     cap_add:
-      - SYS_PTRACE                            # Allow process tracing capabilities used for debugging, accessing gpu.
+      - SYS_PTRACE                            # Allow process tracing capabilities to enable debugging, e.g. gdb, accessing gpu.
 
     # Security Options
     security_opt:
@@ -47,14 +47,17 @@ services:
       - ${XAUTHORITY:-$HOME/.Xauthority}:${USER_DIR}/.Xauthority:rw   # Mounts X11 Authorization file.
 
       # SSH
-      - ${HOME}/.ssh/:${USER_DIR}/.ssh/         # Mount ssh keys
+      - ${HOME}/.ssh/:${USER_DIR}/.ssh/                 # Mount ssh keys
+
+      # Bash history
+      - ${HOME}.bash_history:${USER_DIR}.bash_history   # Mount bash commands history
 
       # User Source file
-      - ../src/:${WORKSPACE_DIR}/src:cached     # Syncs the source Directory.
+      - ../src/:${WORKSPACE_DIR}/src:cached             # Syncs the source Directory.
 
     devices:
       # Graphics card
-      - /dev/dri/card1:/dev/dri/card1                  # Mounting graphic card interfaces.
+      - /dev/dri/card1:/dev/dri/card1                   # Mounting graphic card interfaces.
       - /dev/dri/renderD128:/dev/dri/renderD128
 
     command: sleep infinity
