@@ -33,7 +33,7 @@ services:
       - SHELL=/bin/bash
       
       # Display
-      - DISPLAY=${DISPLAY}                    # Specify X11 display server.
+      - DISPLAY=${DISPLAY}                  # Specify X11 display server.
       - QT_X11_NO_MITSHM=1
 
       # ROS
@@ -41,8 +41,8 @@ services:
 
     # Volume Configuration
     volumes:
-      # Display
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw                              # Mounts X11 Socket.
+      # Display 
+      - /tmp/.X11-unix/${DISPLAY_NUM}:/tmp/.X11-unix/${DISPLAY_NUM}:rw          # Mounts X11 Socket.
 
       # SSH
       - ${HOME}/.ssh/:${USER_DIR}/.ssh/                 # Mount ssh keys
@@ -55,7 +55,6 @@ services:
 
     devices:
       # Graphics card
-      - /dev/dri/card1:/dev/dri/card1                   # Mounting graphic card interfaces.
-      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri:/dev/dri                # Mounting graphic card interfaces.
 
     command: sleep infinity
