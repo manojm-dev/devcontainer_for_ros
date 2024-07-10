@@ -7,11 +7,12 @@ ARG TARGET_LAYER
 FROM ${BASE_IMAGE} as ros
 
 # Docker Arguments
-ARG ROS_DISTROs
+ARG ROS_DISTRO
 ARG RMW_IMPLEMENTATION
 ARG USERNAME
 ARG USER_UID
 ARG USER_GID
+ARG USER_DIR
 ARG WORKSPACE_DIR
 
 # Setting shell to bash and apt in non-interactive mode
@@ -25,7 +26,8 @@ ENV WORKSPACE_DIR=${WORKSPACE_DIR}
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
     && echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
-    && chmod 0440 /etc/sudoers.d/${USERNAME}
+    && chmod 0440 /etc/sudoers.d/${USERNAME} \
+    && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
 
 USER ${USERNAME}
 
@@ -103,3 +105,9 @@ RUN sudo apt install -y \
 ## Debugging tools
 RUN sudo apt install -y \
     gdb
+
+## ros specific tools
+
+### groot2
+RUN mkdir -p /home/${USERNAME}/Downloads && cd ${USER_DIR}/Downloads && \
+    wget https://s3.us-west-1.amazonaws.com/download.behaviortree.dev/groot2_linux_installer/Groot2-v1.6.0-linux-installer.run

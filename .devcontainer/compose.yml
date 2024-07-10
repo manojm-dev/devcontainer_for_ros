@@ -51,10 +51,13 @@ services:
       - ${HOME}.bash_history:${USER_DIR}.bash_history   # Mount bash commands history
 
       # User Source file
-      - ../src/:${WORKSPACE_DIR}/src:cached             # Syncs the source Directory.
+      - ../src/:${WORKSPACE_DIR}/src:cached             # Syncs the source Directory
+
+      # Mount usb devices
+      - /dev:/dev                                       # Mounts devices dynamically
 
     devices:
       # Graphics card
-      - /dev/dri:/dev/dri                # Mounting graphic card interfaces.
+      - /dev/dri:/dev/dri                # Mounting graphic card interfaces with appropriate permissions
 
     command: sleep infinity
