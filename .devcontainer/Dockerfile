@@ -109,5 +109,5 @@ RUN sudo apt install -y \
 ## ros specific tools
 
 ### groot2
-RUN mkdir -p /home/${USERNAME}/Downloads && cd ${USER_DIR}/Downloads && \
+RUN mkdir -p /home/${USERNAME}/Downloads && cd /home/${USERNAME}/Downloads && \
     wget https://s3.us-west-1.amazonaws.com/download.behaviortree.dev/groot2_linux_installer/Groot2-v1.6.0-linux-installer.run
