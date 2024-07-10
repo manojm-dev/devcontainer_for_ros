@@ -48,7 +48,7 @@ services:
       - ${HOME}/.ssh/:${USER_DIR}/.ssh/                 # Mount ssh keys
 
       # Bash history
-      - ${HOME}.bash_history:${USER_DIR}.bash_history   # Mount bash commands history
+      - ${HOME}/.bash_history:${USER_DIR}/.bash_history   # Mount bash commands history
 
       # User Source file
       - ../src/:${WORKSPACE_DIR}/src:cached             # Syncs the source Directory

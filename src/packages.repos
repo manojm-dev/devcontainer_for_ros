@@ -1,5 +1,5 @@
 repositories:
-  examples:
+  questbot:
     type: git
-    url: https://github.com/ros2/examples.git
-    version: humble
+    url: git@github.com:manojm-dev/QuestBot.git
+    version: main
