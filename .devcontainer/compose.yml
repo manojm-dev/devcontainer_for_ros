@@ -60,4 +60,5 @@ services:
       # Graphics card
       - /dev/dri:/dev/dri                # Mounting graphic card interfaces with appropriate permissions
 
+
     command: sleep infinity
