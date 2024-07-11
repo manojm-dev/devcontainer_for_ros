@@ -19,6 +19,9 @@ services:
     network_mode: host                        # Utilize host network stack for seamless communication.
     ipc: host                                 # Shared memory transport with host, e.g. rviz GUIs
 
+    # Allow access
+    privileged: true
+
     # Linux Capabilities
     cap_add:
       - SYS_PTRACE                            # Allow process tracing capabilities to enable debugging, e.g. gdb, accessing gpu.
@@ -33,7 +36,7 @@ services:
       - SHELL=/bin/bash
       
       # Display
-      - DISPLAY=${DISPLAY}                  # Specify X11 display server.
+      - DISPLAY=${DISPLAY}                    # Specify X11 display server.
       - QT_X11_NO_MITSHM=1
 
       # ROS
@@ -45,16 +48,19 @@ services:
       - /tmp/.X11-unix/${DISPLAY_NUM}:/tmp/.X11-unix/${DISPLAY_NUM}:rw          # Mounts X11 Socket.
 
       # SSH
-      - ${HOME}/.ssh/:${USER_DIR}/.ssh/                 # Mount ssh keys
+      - ${HOME}/.ssh/:${USER_DIR}/.ssh/                   # Mount ssh keys
 
       # Bash history
       - ${HOME}/.bash_history:${USER_DIR}/.bash_history   # Mount bash commands history
 
       # User Source file
-      - ../src/:${WORKSPACE_DIR}/src:cached             # Syncs the source Directory
+      - ../src/:${WORKSPACE_DIR}/src                      # Syncs the source Directory
+
+      # VScode config files
+      - ../.vscode:${WORKSPACE_DIR}/.vscode               # Mounts vscode config files
 
       # Mount usb devices
-      - /dev:/dev                                       # Mounts devices dynamically
+      - /dev:/dev:rw                                      # Mounts devices dynamically
 
     devices:
       # Graphics card
