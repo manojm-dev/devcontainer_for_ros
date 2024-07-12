@@ -59,6 +59,9 @@ services:
       # VScode config files
       - ../.vscode:${WORKSPACE_DIR}/.vscode               # Mounts vscode config files
 
+      # Devcontainer config files
+      - ../.devcontainer:${WORKSPACE_DIR}/.devcontainer   # Mounts devcontainer config files
+
       # Mount usb devices
       - /dev:/dev:rw                                      # Mounts devices dynamically
 

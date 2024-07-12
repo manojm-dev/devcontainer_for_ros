@@ -66,7 +66,7 @@ RUN python3 -m pip install \
 RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
     echo 'source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash' >> ~/.bashrc && \
     echo 'source ${WORKSPACE_DIR}/install/setup.bash' >> ~/.bashrc && \
-    echo 'alias sourcews=${WORKSPACE_DIR}/install/setup.bash' >> ~/.bashrc
+    echo "alias sourcews='source ${WORKSPACE_DIR}/install/setup.bash'" >> ~/.bashrc
 
 
 
@@ -111,3 +111,9 @@ RUN sudo apt install -y \
 ### groot2
 RUN mkdir -p /home/${USERNAME}/Downloads && cd /home/${USERNAME}/Downloads && \
     wget https://s3.us-west-1.amazonaws.com/download.behaviortree.dev/groot2_linux_installer/Groot2-v1.6.0-linux-installer.run
+
+
+# SOURCING PKGS
+
+## adding source to bashrc
+RUN echo 'alias groot2=/home/${USERNAME}/Groot2/bin/groot2' >> ~/.bashrc
