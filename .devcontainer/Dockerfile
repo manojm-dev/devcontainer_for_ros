@@ -43,11 +43,12 @@ RUN sudo apt update && sudo apt install -y \
 
 ## DDS
 RUN if [ "${RMW_IMPLEMENTATION}" = "rmw_fastrtps_cpp" ]; then \
-        apt install -y ros-$ROS_DISTRO-rmw-fastrtps-cpp \
+        apt update && apt install -y ros-${ROS_DISTRO}-rmw-fastrtps-cpp ; \
     elif [ "${RMW_IMPLEMENTATION}" = "rmw_cyclonedds_cpp" ]; then \
-        apt install -y ros-$ROS_DISTRO-rmw-cyclonedds-cpp \
+        apt update && apt install -y ros-${ROS_DISTRO}-rmw-cyclonedds-cpp ; \
     else \
-        echo "ERROR: No dds is mentioned" \
+        echo "ERROR: Unknown RMW_IMPLEMENTATION (${RMW_IMPLEMENTATION})" ; \
+        exit 1 ; \
     fi
 
 ## Install Simulation tools
