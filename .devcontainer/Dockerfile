@@ -43,9 +43,9 @@ RUN sudo apt update && sudo apt install -y \
 
 ## DDS
 RUN if [ "${RMW_IMPLEMENTATION}" = "rmw_fastrtps_cpp" ]; then \
-        apt update && apt install -y ros-${ROS_DISTRO}-rmw-fastrtps-cpp ; \
+        sudo apt install -y ros-${ROS_DISTRO}-rmw-fastrtps-cpp ; \
     elif [ "${RMW_IMPLEMENTATION}" = "rmw_cyclonedds_cpp" ]; then \
-        apt update && apt install -y ros-${ROS_DISTRO}-rmw-cyclonedds-cpp ; \
+        sudo apt install -y ros-${ROS_DISTRO}-rmw-cyclonedds-cpp ; \
     else \
         echo "ERROR: Unknown RMW_IMPLEMENTATION (${RMW_IMPLEMENTATION})" ; \
         exit 1 ; \
