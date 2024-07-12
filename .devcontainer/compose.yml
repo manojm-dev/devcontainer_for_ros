@@ -42,6 +42,10 @@ services:
       # ROS
       - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}        # Define ROS domain ID for communication.
 
+    # Export environment variables
+    env_file:
+      - .env
+
     # Volume Configuration
     volumes:
       # Display 

@@ -41,6 +41,15 @@ RUN mkdir -p ${WORKSPACE_DIR}/src
 RUN sudo apt update && sudo apt install -y \
     nano curl python3-pip ros-dev-tools
 
+## DDS
+RUN if [ "${RMW_IMPLEMENTATION}" = "rmw_fastrtps_cpp" ]; then \
+        apt install -y ros-$ROS_DISTRO-rmw-fastrtps-cpp
+    elif [ "${RMW_IMPLEMENTATION}" = "rmw_cyclonedds_cpp" ]; then \
+        apt install -y ros-$ROS_DISTRO-rmw-cyclonedds-cpp
+    else \
+        echo "ERROR: No dds is mentioned"
+    fi
+
 ## Install Simulation tools
 RUN sudo apt install -y lsb-release gnupg && \
     sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
