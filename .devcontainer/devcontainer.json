@@ -1,7 +1,7 @@
 {
-	"name": "ROS Workspace",
+	"name": "${localWorkspaceFolderBasename} Devcontainer",
 	"dockerComposeFile": ["compose.yml"],
-	"service":"ros",
+	"service":"ros", 
 
 	"shutdownAction": "stopCompose",
 	"workspaceFolder": "/home/develop/workspace/",

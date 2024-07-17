@@ -1,10 +1,10 @@
-ARG BASE_IMAGE
 ARG TARGET_LAYER
+ARG ROS_DISTRO
 
 ##################################
 ######## ROS2 IMAGE ##############
 ##################################
-FROM ${BASE_IMAGE} as ros
+FROM ros:${ROS_DISTRO} as ros
 
 # Docker Arguments
 ARG ROS_DISTRO
@@ -21,6 +21,9 @@ SHELL ["/bin/bash", "-c"]
 # Environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV WORKSPACE_DIR=${WORKSPACE_DIR}
+
+# Check if any user already exist with same GID and delete it
+RUN awk -v gid="${USER_GID}" -F':' '$4 == gid {print $1}' /etc/passwd | xargs -r userdel -r
 
 # Create the user and login
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
@@ -55,7 +58,7 @@ RUN if [ "${RMW_IMPLEMENTATION}" = "rmw_fastrtps_cpp" ]; then \
 RUN sudo apt install -y lsb-release gnupg && \
     sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
-    sudo apt update && sudo apt install ros-${ROS_DISTRO}-ros-gz
+    sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-ros-gz
 
 ## Install visualization tools
 RUN sudo apt install -y \
@@ -83,7 +86,7 @@ RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
 ##################################
 ######## NAV2 IMAGE ##############
 ##################################
-FROM base as nav
+FROM ros as nav
 
 # INSTALLING PKGS
 
@@ -116,11 +119,18 @@ RUN sudo apt install -y \
 RUN sudo apt install -y \
     gdb
 
-## ros specific tools
+## PlotJuggler
+RUN sudo apt install -y ros-${ROS_DISTRO}-plotjuggler-ros
 
-### groot2
+## groot2
 RUN mkdir -p /home/${USERNAME}/Downloads && cd /home/${USERNAME}/Downloads && \
     wget https://s3.us-west-1.amazonaws.com/download.behaviortree.dev/groot2_linux_installer/Groot2-v1.6.0-linux-installer.run
+
+## FlexBE
+RUN sudo apt install -y ros-${ROS_DISTRO}-flexbe-behavior-engine
+
+## Plansys
+RUN sudo apt install -y ros-${ROS_DISTRO}-plansys2-*
 
 
 # SOURCING PKGS

@@ -52,7 +52,7 @@ services:
       - /tmp/.X11-unix/${DISPLAY_NUM}:/tmp/.X11-unix/${DISPLAY_NUM}:rw          # Mounts X11 Socket.
 
       # SSH
-      - ${HOME}/.ssh/:${USER_DIR}/.ssh/                   # Mount ssh keys
+      #- ${HOME}/.ssh/:${USER_DIR}/.ssh/                   # Mount ssh keys
 
       # Bash history
       - ${HOME}/.bash_history:${USER_DIR}/.bash_history   # Mount bash commands history
@@ -68,9 +68,5 @@ services:
 
       # Mount usb devices
       - /dev:/dev:rw                                      # Mounts devices dynamically
-
-    devices:
-      # Graphics card
-      - /dev/dri:/dev/dri                # Mounting graphic card interfaces with appropriate permissions
 
     command: sleep infinity
