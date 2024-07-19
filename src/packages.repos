@@ -1,5 +1,5 @@
 repositories:
   questbot:
     type: git
-    url: git@github.com:manojm-dev/QuestBot.git
+    url: https://github.com/manojm-dev/QuestBot.git
     version: main

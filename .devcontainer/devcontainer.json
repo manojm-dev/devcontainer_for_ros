@@ -1,5 +1,5 @@
 {
-	"name": "${localWorkspaceFolderBasename} Devcontainer",
+	"name": "${localWorkspaceFolderBasename}",
 	"dockerComposeFile": ["compose.yml"],
 	"service":"ros", 
 

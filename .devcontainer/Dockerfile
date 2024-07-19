@@ -1,4 +1,3 @@
-ARG TARGET_LAYER
 ARG ROS_DISTRO
 
 ##################################
@@ -44,33 +43,11 @@ RUN mkdir -p ${WORKSPACE_DIR}/src
 RUN sudo apt update && sudo apt install -y \
     nano curl python3-pip ros-dev-tools
 
-## DDS
-RUN if [ "${RMW_IMPLEMENTATION}" = "rmw_fastrtps_cpp" ]; then \
-        sudo apt install -y ros-${ROS_DISTRO}-rmw-fastrtps-cpp ; \
-    elif [ "${RMW_IMPLEMENTATION}" = "rmw_cyclonedds_cpp" ]; then \
-        sudo apt install -y ros-${ROS_DISTRO}-rmw-cyclonedds-cpp ; \
-    else \
-        echo "ERROR: Unknown RMW_IMPLEMENTATION (${RMW_IMPLEMENTATION})" ; \
-        exit 1 ; \
-    fi
-
 ## Install Simulation tools
 RUN sudo apt install -y lsb-release gnupg && \
     sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
     sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-ros-gz
-
-## Install visualization tools
-RUN sudo apt install -y \
-    ros-${ROS_DISTRO}-rviz2 \
-    ~nros-${ROS_DISTRO}-rqt*
-
-
-# DEPENDENCIES
-
-## rqt
-RUN python3 -m pip install \
-    pyyaml packaging netifaces
 
     
 # SOURCING PKGS
@@ -84,56 +61,27 @@ RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
 
 
 ##################################
-######## NAV2 IMAGE ##############
+####### Dev tools layer ##########
 ##################################
-FROM ros as nav
+FROM ros as dev
 
-# INSTALLING PKGS
+# Docker args
+ARG ROS_DISTRO
+ARG USER_DIR
+ARG ITOOLS
+ARG IFRAMEWORKS
+ARG IROSTOOLS
 
-## Updating packages
-RUN sudo apt update && sudo apt upgrade -y 
-
-## Installing nav2
-RUN sudo apt install -y \
-    ros-${ROS_DISTRO}-navigation2 \
-    ros-${ROS_DISTRO}-nav2-bringup
-
-
-
-##################################
-######## NAV2 IMAGE ##############
-##################################
-FROM ${TARGET_LAYER} as dev
 
 # INSTALLING PKGS
 
 ## Updating packages
 RUN sudo apt update && sudo apt upgrade -y
 
-## Installing terminal tools
-RUN sudo apt install -y \
-    bash-completion \
-    tmux
-
-## Debugging tools
-RUN sudo apt install -y \
-    gdb
-
-## PlotJuggler
-RUN sudo apt install -y ros-${ROS_DISTRO}-plotjuggler-ros
-
-## groot2
-RUN mkdir -p /home/${USERNAME}/Downloads && cd /home/${USERNAME}/Downloads && \
-    wget https://s3.us-west-1.amazonaws.com/download.behaviortree.dev/groot2_linux_installer/Groot2-v1.6.0-linux-installer.run
-
-## FlexBE
-RUN sudo apt install -y ros-${ROS_DISTRO}-flexbe-behavior-engine
-
-## Plansys
-RUN sudo apt install -y ros-${ROS_DISTRO}-plansys2-*
-
-
-# SOURCING PKGS
-
-## adding source to bashrc
-RUN echo 'alias groot2=/home/${USERNAME}/Groot2/bin/groot2' >> ~/.bashrc
+## Installing frameworks and tools installation script
+RUN mkdir /tmp/scripts && chmod +x -R /tmp/scripts 
+COPY scripts /tmp/scripts
+RUN cd /tmp/scripts && \
+    ./tools.bash && \
+    ./frameworks.bash && \
+    ./rostools.bash

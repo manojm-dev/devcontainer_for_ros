@@ -6,13 +6,16 @@ services:
       dockerfile: Dockerfile
       args:
         - ROS_DISTRO=${ROS_DISTRO}
-        - BASE_IMAGE=${BASE_IMAGE}
-        - TARGET_LAYER=${TARGET_LAYER}
         - RMW_IMPLEMENTATION=${RMW_IMPLEMENTATION}
         - USERNAME=${USERNAME}
         - USER_UID=${USER_UID}
         - USER_GID=${USER_GID}
+        - USER_DIR=${USER_DIR}
         - WORKSPACE_DIR=${WORKSPACE_DIR}
+        - ITOOLS=${ITOOLS}
+        - IROSTOOLS=${IROSTOOLS}
+        - IFRAMEWORKS=${IFRAMEWORKS}
+        
       target: dev
     
     # Network Mode Configuration
@@ -41,8 +44,7 @@ services:
 
       # ROS
       - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}        # Define ROS domain ID for communication.
-
-    # Export environment variables
+    
     env_file:
       - .env
 
