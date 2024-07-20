@@ -6,7 +6,6 @@ ARG ROS_DISTRO
 FROM ros:${ROS_DISTRO} as ros
 
 # Docker Arguments
-ARG ROS_DISTRO
 ARG RMW_IMPLEMENTATION
 ARG USERNAME
 ARG USER_UID
@@ -14,12 +13,18 @@ ARG USER_GID
 ARG USER_DIR
 ARG WORKSPACE_DIR
 
+
 # Setting shell to bash and apt in non-interactive mode
 SHELL ["/bin/bash", "-c"]
 
 # Environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 ENV WORKSPACE_DIR=${WORKSPACE_DIR}
+ENV VIRTUAL_ENV=/opt/venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+## virtualenv
+RUN apt update && apt install -y python3-virtualenv && virtualenv $VIRTUAL_ENV
 
 # Check if any user already exist with same GID and delete it
 RUN awk -v gid="${USER_GID}" -F':' '$4 == gid {print $1}' /etc/passwd | xargs -r userdel -r
@@ -33,6 +38,9 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 
 USER ${USERNAME}
 
+# Giving permissions
+RUN sudo chown -R ${USERNAME}:${USERNAME} /opt/venv
+
 # Creating Workspace
 RUN mkdir -p ${WORKSPACE_DIR}/src
 
@@ -40,14 +48,12 @@ RUN mkdir -p ${WORKSPACE_DIR}/src
 # INSTALLING PKGS
 
 ## Basic pkgs
-RUN sudo apt update && sudo apt install -y \
+RUN sudo apt install -y \
     nano curl python3-pip ros-dev-tools
 
-## Install Simulation tools
-RUN sudo apt install -y lsb-release gnupg && \
-    sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null && \
-    sudo apt update && sudo apt install -y ros-${ROS_DISTRO}-ros-gz
+## Copying installation script
+RUN mkdir /tmp/scripts && chmod +x -R /tmp/scripts 
+COPY scripts /tmp/scripts
 
     
 # SOURCING PKGS
@@ -61,27 +67,53 @@ RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
 
 
 ##################################
-####### Dev tools layer ##########
+###### Frameworks Layer ##########
 ##################################
-FROM ros as dev
+FROM ros as rosframeworks
 
 # Docker args
-ARG ROS_DISTRO
-ARG USER_DIR
-ARG ITOOLS
 ARG IFRAMEWORKS
-ARG IROSTOOLS
 
-
-# INSTALLING PKGS
-
-## Updating packages
+# Updating packages
 RUN sudo apt update && sudo apt upgrade -y
 
-## Installing frameworks and tools installation script
-RUN mkdir /tmp/scripts && chmod +x -R /tmp/scripts 
-COPY scripts /tmp/scripts
-RUN cd /tmp/scripts && \
-    ./tools.bash && \
-    ./frameworks.bash && \
-    ./rostools.bash
+# Installing frameworks
+WORKDIR /tmp/scripts 
+RUN ./frameworks.bash 
+
+
+
+##################################
+######### Tools layer ############
+##################################
+FROM rosframeworks as rostools
+
+# Docker args
+ARG IROSTOOLS
+
+# Updating packages
+RUN sudo apt update && sudo apt upgrade -y
+
+# Installing ros tools
+WORKDIR /tmp/scripts 
+RUN ./rostools.bash
+
+
+
+##################################
+######### Tools layer ############
+##################################
+FROM rostools as tools
+
+# Docker args
+ARG ITOOLS
+
+# Updating packages
+RUN sudo apt update && sudo apt upgrade -y
+
+# Installing Tools
+WORKDIR /tmp/scripts 
+RUN ./tools.bash
+
+
+FROM tools as dev

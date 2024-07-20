@@ -1,16 +1,46 @@
 #!/bin/bash
 
-# Installation cmds for rostools
-fastdds="sudo apt install ros-${ROS_DISTRO}-rmw-fastrtps-cpp -y"
-rviz="sudo apt install ros-${ROS_DISTRO}-rviz2 -y"
-rqt="sudo apt install ~nros-${ROS_DISTRO}-rqt* -y"
-plotjuggler="sudo apt install ros-${ROS_DISTRO}-plotjuggler-ros -y"
-flexbe="sudo apt install ros-${ROS_DISTRO}-flexbe-behavior-engine -y"
-groot="mkdir -p /home/${USERNAME}/downloads && cd /home/${USERNAME}/Downloads && wget https://s3.us-west-1.amazonaws.com/download.behaviortree.dev/groot2_linux_installer/Groot2-v1.6.0-linux-installer.run && \
-            echo 'alias groot2=/home/${USERNAME}/Groot2/bin/groot2' >> ~/.bashrc"
+# Installaion of ROS tools
 
-# Installation cmd for installation of dependencies of tools
+# DDS
+
+## fastdds
+fastdds="sudo apt install -y ros-${ROS_DISTRO}-rmw-fastrtps-cpp"
+
+## cyclone dds
+cyclonedds="sudo apt install -y ros-${ROS_DISTRO}-rmw-cyclonedds-cpp"
+
+
+# SIMULATION SOFTWARES
+
+## gazebo classic & gazebo classic plugins
+gazebo="sudo apt install -y ros-${ROS_DISTRO}-gazebo-ros"
+
+## gazebo sim
+gazebosim="sudo apt install -y ros-${ROS_DISTRO}-ros-gz"
+
+
+# VISUALISING & DEBUGGING TOOLS
+
+## rviz
+rviz="sudo apt install -y ros-${ROS_DISTRO}-rviz2"
+
+## rqt & rqt dependencies
+rqt="sudo apt install -y ~nros-${ROS_DISTRO}-rqt*"
 rqtdep="pip install pyyaml packaging netifaces"
+
+## plotjuggler
+plotjuggler="sudo apt install -y ros-${ROS_DISTRO}-plotjuggler-ros"
+
+
+# BEHAVIOUR TREE TOOLS
+
+## flexbe
+flexbe="sudo apt install -y ros-${ROS_DISTRO}-flexbe-behavior-engine"
+
+## groot2
+groot2="mkdir -p /home/${USERNAME}/downloads && cd /home/${USERNAME}/Downloads && wget https://s3.us-west-1.amazonaws.com/download.behaviortree.dev/groot2_linux_install -yer/Groot2-v1.6.0-linux-install -yer.run && \
+            echo 'alias groot2=/home/${USERNAME}/Groot2/bin/groot2' >> ~/.bashrc"
 
 
 

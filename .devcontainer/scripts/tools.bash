@@ -1,10 +1,15 @@
 #!/bin/bash
 
-# Installation cmds for tools
-## terminal
-bashcompletion='sudo apt install bash-completion -y'
+# Installation Tools
+
+# TERMINAL TOOLS
+bash_completion='sudo apt install bash-completion -y'
 tmux='sudo apt install tmux -y'
-## c/cpp
+
+
+# C/C++ Dev tools
 gdb='sudo apt install gdb -y'
+
+
 
 eval ${ITOOLS}
