@@ -24,7 +24,7 @@ ENV VIRTUAL_ENV=/opt/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 ## virtualenv
-RUN apt update && apt install -y python3-virtualenv && virtualenv $VIRTUAL_ENV
+RUN apt update && apt install -y python3-virtualenv && virtualenv --system-site-pkgs $VIRTUAL_ENV
 
 # Check if any user already exist with same GID and delete it
 RUN awk -v gid="${USER_GID}" -F':' '$4 == gid {print $1}' /etc/passwd | xargs -r userdel -r
