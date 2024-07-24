@@ -9,10 +9,16 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"ms-iot.vscode-ros",
 				"ms-python.python",
+				"ms-python.autopep8",
+				"njpwerner.autodocstring",
 				"ms-vscode.cpptools-extension-pack",
+				"zachflower.uncrustify",
+				"smilerobotics.urdf",			
+				"redhat.vscode-xml",
 				"eamodio.gitlens",
-				"ms-iot.vscode-ros"
+				"ms-azuretools.vscode-docker",
 			]
 		}
 	}

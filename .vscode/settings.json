@@ -6,5 +6,5 @@
     "python.analysis.extraPaths": [
         "/opt/ros/${env:ROS_DISTRO}/lib/python3.10/site-packages",
         "/opt/ros/${env:ROS_DISTRO}/local/lib/python3.10/dist-packages"
-    ]
+    ],
 }

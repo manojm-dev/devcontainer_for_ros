@@ -16,4 +16,4 @@ plansys2="sudo apt install ros-${ROS_DISTRO}-plansys2-* -y"
 
 
 # Install frameworks
-eval ${INSTALL_FRAMEWORKS}
+eval ${IFRAMEWORKS}
