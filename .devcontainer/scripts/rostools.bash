@@ -29,6 +29,9 @@ rviz="sudo apt install -y ros-${ROS_DISTRO}-rviz2"
 rqt="sudo apt install -y ~nros-${ROS_DISTRO}-rqt*"
 rqtdep="pip install pyyaml packaging netifaces"
 
+## rosmetasys
+rosmetasys="pip install rosmetasys"
+
 ## plotjuggler
 plotjuggler="sudo apt install -y ros-${ROS_DISTRO}-plotjuggler-ros"
 
