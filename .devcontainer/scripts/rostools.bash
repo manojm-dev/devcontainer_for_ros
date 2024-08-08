@@ -26,8 +26,7 @@ gazebosim="sudo apt install -y ros-${ROS_DISTRO}-ros-gz"
 rviz="sudo apt install -y ros-${ROS_DISTRO}-rviz2"
 
 ## rqt & rqt dependencies
-rqt="sudo apt install -y ~nros-${ROS_DISTRO}-rqt*"
-rqtdep="pip install pyyaml packaging netifaces"
+rqt="sudo apt install -y ~nros-${ROS_DISTRO}-rqt* && pip install pyyaml packaging netifaces"
 
 ## rosmetasys
 rosmetasys="pip install rosmetasys"
