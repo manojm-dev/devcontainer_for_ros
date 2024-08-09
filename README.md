@@ -16,12 +16,9 @@
 
 ## Steps
 
-- Exporting some required variables to .profiles
-
+1) Adding few variables and cmd to `.profiles` file to give gui access for the container
+- Open `~/.profiles` file in a text editor and add the below lines
 ```
-# open .profiles file in nano and add these lines
-cd && nano .profile
-
 # docker
 xhost +SI:localuser:$USER
 
@@ -30,20 +27,32 @@ export DISPLAY_NUM=${DISPLAY#:}
 
 # after exiting source .profile for first time only
 source ~/.profile
-
 ```
 
-- Edit .env file to add or remove tools, rostools and frameworks.
-- Example:
-
+2) Clone this repository and open in `vscode`
 ```
-# ROS Frameworks
-# ros2_control
-# nav2
-# plansys2
-
-# 1) you can add or remove pkg listed above 
-# 2) Don't forget to add `&&` when adding a another pkg trailing to it
-# 3) Also add `$` before the pkg name 
-IFRAMEWORKS='$ros2_control && $nav2'
+git clone https://github.com/manojm-dev/devcontainer_for_ros.git ros_ws
+cd ros_ws && code .
 ```
+3) Open the `.env` file placed inside the `.devcontainer` folder for adding or removing pkg as per your need.
+- Example
+  ```
+  # ROS Frameworks
+  # ros2_control
+  # nav2
+  # plansys2
+  
+  # 1) you can add or remove pkg listed above 
+  # 2) Don't forget to add `&&` when adding a another pkg trailing to it
+  # 3) Also add `$` before the pkg name 
+  IFRAMEWORKS='$ros2_control && $nav2'
+  ```
+4) Opening the devcontianer
+- Press `Control + Shift + P` to open `Command Pallete`
+- Find `Dev Containers: Reopen in Container` and click to the lanch the devcontainer environment
+
+5) Using the devcontainer on daily basis
+- When ever you open this folder in vscode `Reopen in Container` dialog box will appear just click on it to resume from where you left off
+![image](https://github.com/user-attachments/assets/56d16332-74da-4542-9209-ef45ccbd4a72)
+
+
