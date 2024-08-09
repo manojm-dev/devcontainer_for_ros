@@ -3,3 +3,7 @@ repositories:
     type: git
     url: https://github.com/manojm-dev/QuestBot.git
     version: main
+  butlerbot:
+    type: git 
+    url: https://github.com/manojm-dev/butlerbot.git
+    version: main
