@@ -21,9 +21,9 @@ services:
     network_mode: host                        # Utilize host network stack for seamless communication.
     ipc: host                                 # Shared memory transport with host, e.g. rviz GUIs
 
-    # Allow access
-    privileged: true
-
+    # Deny access
+    privileged: false
+ 
     # Linux Capabilities
     cap_add:
       - SYS_PTRACE                            # Allow process tracing capabilities to enable debugging, e.g. gdb, accessing gpu.
@@ -67,6 +67,19 @@ services:
       - ../.devcontainer:${WORKSPACE_DIR}/.devcontainer   # Mounts devcontainer config files
 
       # Mount usb devices
-      - /dev:/dev:rw                                      # Mounts devices dynamically
+      - /dev:/dev                                      # Mounts devices dynamically
+
+    device_cgroup_rules:
+      # full access
+      # add all usb devices 
+      # - 'c *:* rwm'
+
+      # fine grained access
+      # add usb modems(ACM*)
+      - 'c 166:* rwm'
+      # add input devices(js*, mouse*, (mice, event*))
+      - 'c 13:* rwm'
+      # add usb serial converters(USB*)
+      - 'c 188:* rwm'
 
     command: sleep infinity
