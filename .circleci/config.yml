@@ -8,13 +8,14 @@ jobs:
       - setup_remote_docker
       - checkout
       - run: |
-          docker image build -t manojm003/ros:jazzy -f Dockerfile .
+          cd .devcontainer && docker compose build 
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "circleci-project-setup" ]; then
               echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
               docker image ls
-              docker push theasp/novnc:latest
+              cd .devcontainer
+              docker compose push
             fi
 
 workflows:
