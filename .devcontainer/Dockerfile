@@ -26,8 +26,8 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 ## virtualenv
 RUN apt update && apt install -y python3-virtualenv && virtualenv --system-site-packages $VIRTUAL_ENV
 
-# Check if any user already exist with same GID and delete it
-RUN awk -v gid="${USER_GID}" -F':' '$4 == gid {print $1}' /etc/passwd | xargs -r userdel -r
+# Check if any user already exist with same UID and delete it
+RUN if id -u $USER_UID ; then userdel `id -un $USER_UID` ; fi
 
 # Create the user and login
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
