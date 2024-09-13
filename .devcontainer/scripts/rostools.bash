@@ -26,10 +26,7 @@ gazebosim=("sudo apt install -y ros-${ROS_DISTRO}-ros-gz")
 rviz=("sudo apt install -y ros-${ROS_DISTRO}-rviz2")
 
 ## rqt & rqt dependencies
-rqt=(
-    "sudo apt install -y ~nros-${ROS_DISTRO}-rqt*" 
-    "pip install pyyaml packaging netifaces"
-)
+rqt=("sudo apt install -y ~nros-${ROS_DISTRO}-rqt*" "pip install pyyaml packaging netifaces")
 
 ## rosmetasys
 rosmetasys=("pip install rosmetasys")
@@ -38,17 +35,17 @@ rosmetasys=("pip install rosmetasys")
 plotjuggler=("sudo apt install -y ros-${ROS_DISTRO}-plotjuggler-ros")
 
 
-# BEHAVIOUR TREE TOOLS
+# DEVELOPMENT TOOLS
 
 ## flexbe
 flexbe=("sudo apt install -y ros-${ROS_DISTRO}-flexbe-behavior-engine")
 
 ## groot2
-groot2=(
-    "mkdir -p /home/${USERNAME}/downloads && cd /home/${USERNAME}/Downloads"
-    "cd /home/${USERNAME}/Downloads && wget https://s3.us-west-1.amazonaws.com/download.behaviortree.dev/groot2_linux_installer/Groot2-v1.6.0-linux-installer.run"
-    "echo 'alias groot2=/home/${USERNAME}/Groot2/bin/groot2' >> ~/.bashrc"
-)
+groot2="./rostools/groot2.bash"
+
+## ros_team_ws
+ros_team_ws="./rostools/ros_team_ws.bash"
+
 
 # Install ros tools
 for cmd in "${IROSTOOLS[@]}"; do 

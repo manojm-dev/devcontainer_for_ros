@@ -22,7 +22,7 @@ services:
     ipc: host                                 # Shared memory transport with host, e.g. rviz GUIs
 
     # Deny access
-    privileged: false
+    privileged: true
  
     # Linux Capabilities
     cap_add:
@@ -55,7 +55,7 @@ services:
       #- ${HOME}/.ssh/:${USER_DIR}/.ssh/                   # Mount ssh keys
 
       # Bash history
-      - ${HOME}/.bash_history:${USER_DIR}/.bash_history   # Mount bash commands history
+      - ${HOME}/.bash_history:${USER_DIR}/.bash_history.docker   # Mount bash commands history
 
       # User Source file
       - ../src/:${WORKSPACE_DIR}/src                      # Syncs the source Directory
@@ -67,7 +67,7 @@ services:
       - ../.devcontainer:${WORKSPACE_DIR}/.devcontainer   # Mounts devcontainer config files
 
       # Mount usb devices
-      - /dev:/dev                                      # Mounts devices dynamically
+      - /dev:/dev:rw                                      # Mounts devices dynamically
 
     device_cgroup_rules:
       # full access

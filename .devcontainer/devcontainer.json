@@ -4,7 +4,7 @@
 	"service":"ros", 
 
 	"shutdownAction": "stopCompose",
-	"workspaceFolder": "/home/develop/workspace/",
+	"workspaceFolder": "/home/devuser/workspace/",
 
 	"customizations": {
 		"vscode": {

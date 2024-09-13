@@ -3,7 +3,7 @@
   "tasks": [
     // Clone ros2 packages
     {
-      "label": "Clone packages",
+      "label": "clone packages",
       "detail": "Import dependencies with vcs tool.",
       "type": "shell",
       "command": "vcs import < packages.repos",
@@ -14,7 +14,7 @@
     },
     // Install dependencies using rosdep
     {
-      "label": "Install dependencies",
+      "label": "install dependencies",
       "detail": "Install all dependencies specified in the workspaces package.xml files.",
       "type": "shell",
       "command": "sudo apt-get update -y && rosdep update && rosdep install --from-paths src --ignore-src -y",
@@ -25,7 +25,7 @@
     },
     // Build - Debug
     {
-      "label": "Build Debug",
+      "label": "build debug",
       "detail": "Build the workspace (release).",
       "type": "shell",
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
@@ -43,7 +43,7 @@
     },
     // Build - Release
     {
-      "label": "Build Release",
+      "label": "build release",
       "detail": "Build the workspace (release).",
       "type": "shell",
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
@@ -61,7 +61,7 @@
     },
     // Build - Relesae With Debug Info
     {
-      "label": "Build RelWithDebInfo",
+      "label": "build RelWithDebInfo",
       "detail": "Build the workspace (release).",
       "type": "shell",
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
@@ -78,7 +78,7 @@
       "problemMatcher": "$gcc"
     },
     {
-      "label": "Test",
+      "label": "test",
       "detail": "Run all unit tests and show results.",
       "type": "shell",
       "command": "colcon test",
@@ -91,8 +91,9 @@
       },
       "problemMatcher": []
     },
+    //Purge
     {
-      "label": "Purge",
+      "label": "purge",
       "detail": "Purge workspace by deleting all generated files.",
       "type": "shell",
       "command": "rm -fr build install log && py3clean .",
@@ -109,5 +110,168 @@
       "command": "colcon build --merge-install --cmake-target clean ",
       "problemMatcher": "$gcc"
     },
+    // Create new package ros2 cli way
+    // cpp
+    {
+      "label": "create new package ament_cmake",
+      "detail": "Create a new ROS cpp package from a template.",
+      "type": "shell",
+      "command": "source /opt/ros/${env:ROS_DISTRO}/setup.bash ; ros2 pkg create --destination-directory src/${input:subfolder} --build-type ament_cmake ${input:packageName}",
+      "options": {
+          "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    // python
+    {
+        "label": "create new package ament_python",
+        "detail": "Create a new ROS python package from a template.",
+        "type": "shell",
+        "command": "source /opt/ros/${env:ROS_DISTRO}/setup.bash ; ros2 pkg create --destination-directory src/${input:subfolder} --build-type ament_python ${input:packageName}",
+        "options": {
+            "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": []
+    },
+    // Create new package from rtw template
+    {
+        "label": "create new package from template",
+        "detail": "Create a new ROS 2 package from rtw template.",
+        "type": "shell",
+        "command": "bash",
+        "args": [
+            "-c",
+            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/create-new-package.bash  ${input:packageName} '${input:packageDescription}'"
+        ],
+        "problemMatcher": [],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        },
+        "options": {
+            "cwd": "${workspaceFolder}/src/${input:subfolder}"
+        },
+    },
+    // Setup packages
+    // description pkgs
+    {
+        "label": "setup robot description",
+        "detail": "Setup robot description from rtw template.",
+        "type": "shell",
+        "command": "bash",
+        "args": [
+            "-c",
+            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/setup-robot-description.bash  ${input:robotName}"
+        ],
+        "problemMatcher": [],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        },
+        "options": {
+            "cwd": "${workspaceFolder}/src/${input:subfolder}/${input:targetPackageName}"
+        },
+    },
+    // bringup
+    {
+        "label": "setup robot bringup",
+        "detail": "Setup robot bringup from rtw template.",
+        "type": "shell",
+        "command": "bash",
+        "args": [
+            "-c",
+            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/setup-robot-bringup.bash  ${input:robotName}  ${input:descriptionPackageName}"
+        ],
+        "problemMatcher": [],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        },
+        "options": {
+            "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
+        },
+    },
+
+    //hardware interface
+    {
+        "label": "setup ros2_control hardware interface",
+        "detail": "Setup ros2_control control hardware interface from rtw template.",
+        "type": "shell",
+        "command": "bash",
+        "args": [
+            "-c",
+            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/ros2_control/setup-hardware-interface-package.bash  ${input:fileName}  ${input:className}"
+        ],
+        "problemMatcher": [],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        },
+        "options": {
+            "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
+        },
+    },
+
+    {
+        "label": "setup ros2_control controller",
+        "detail": "Setup ros2_control controller from rtw template.",
+        "type": "shell",
+        "command": "bash",
+        "args": [
+            "-c",
+            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/ros2_control/setup-controller-package.bash  ${input:fileName} ."
+        ],
+        "problemMatcher": [],
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        },
+        "options": {
+            "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
+        },
+    },
+  ],
+  "inputs": 
+  [
+    {
+        "id": "packageName",
+        "type": "promptString",
+        "description": "Package name"
+    },
+    {
+      "id": "subfolder",
+      "type": "promptString",
+      "description": "project subfolder name, if dont have subfolder in src just press enter"
+    },
+    {
+        "id": "packageDescription",
+        "type": "promptString",
+        "description": "Package Description"
+    },
+    {
+        "id": "robotName",
+        "type": "promptString",
+        "description": "Robot Name"
+    },
+    {
+        "id": "targetPackageName",
+        "type": "promptString",
+        "description": "Target package name"
+    },
+    {
+        "id": "descriptionPackageName",
+        "type": "promptString",
+        "description": "Description Package Name"
+    },
+    {
+        "id": "fileName",
+        "type": "promptString",
+        "description": "File Name"
+    },
+    {
+        "id": "className",
+        "type": "promptString",
+        "description": "Class Name"
+    }
   ]
 }

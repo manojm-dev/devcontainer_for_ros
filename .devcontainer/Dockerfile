@@ -39,7 +39,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 USER ${USERNAME}
 
 # Giving permissions
-RUN sudo chown -R ${USERNAME}:${USERNAME} /opt/venv
+RUN sudo chown -R ${USERNAME}:${USERNAME} /opt/
 
 # Creating Workspace
 RUN mkdir -p ${WORKSPACE_DIR}/src
