@@ -31,7 +31,7 @@
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
       "options": {
         "cwd": "${workspaceFolder}",
-        "env":{
+        "env": {
           "BUILD_TYPE": "Debug"
         }
       },
@@ -49,7 +49,7 @@
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
       "options": {
         "cwd": "${workspaceFolder}",
-        "env":{
+        "env": {
           "BUILD_TYPE": "Release"
         }
       },
@@ -67,7 +67,7 @@
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
       "options": {
         "cwd": "${workspaceFolder}",
-        "env":{
+        "env": {
           "BUILD_TYPE": "RelWithDebInfo"
         }
       },
@@ -102,8 +102,8 @@
       },
       "problemMatcher": []
     },
-     // Clean
-     {
+    // Clean
+    {
       "label": "clean",
       "detail": "Run the clean target",
       "type": "shell",
@@ -118,125 +118,122 @@
       "type": "shell",
       "command": "source /opt/ros/${env:ROS_DISTRO}/setup.bash ; ros2 pkg create --destination-directory src/${input:subfolder} --build-type ament_cmake ${input:packageName}",
       "options": {
-          "cwd": "${workspaceFolder}"
+        "cwd": "${workspaceFolder}"
       },
       "problemMatcher": []
     },
     // python
     {
-        "label": "create new package ament_python",
-        "detail": "Create a new ROS python package from a template.",
-        "type": "shell",
-        "command": "source /opt/ros/${env:ROS_DISTRO}/setup.bash ; ros2 pkg create --destination-directory src/${input:subfolder} --build-type ament_python ${input:packageName}",
-        "options": {
-            "cwd": "${workspaceFolder}"
-        },
-        "problemMatcher": []
+      "label": "create new package ament_python",
+      "detail": "Create a new ROS python package from a template.",
+      "type": "shell",
+      "command": "source /opt/ros/${env:ROS_DISTRO}/setup.bash ; ros2 pkg create --destination-directory src/${input:subfolder} --build-type ament_python ${input:packageName}",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
     },
     // Create new package from rtw template
     {
-        "label": "create new package from template",
-        "detail": "Create a new ROS 2 package from rtw template.",
-        "type": "shell",
-        "command": "bash",
-        "args": [
-            "-c",
-            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/create-new-package.bash  ${input:packageName} '${input:packageDescription}'"
-        ],
-        "problemMatcher": [],
-        "group": {
-            "kind": "build",
-            "isDefault": true
-        },
-        "options": {
-            "cwd": "${workspaceFolder}/src/${input:subfolder}"
-        },
+      "label": "create new package from template",
+      "detail": "Create a new ROS 2 package from rtw template.",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/create-new-package.bash  ${input:packageName} '${input:packageDescription}'"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/src/${input:subfolder}"
+      },
     },
-    // Setup packages
-    // description pkgs
+    // setup description pkgs
     {
-        "label": "setup robot description",
-        "detail": "Setup robot description from rtw template.",
-        "type": "shell",
-        "command": "bash",
-        "args": [
-            "-c",
-            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/setup-robot-description.bash  ${input:robotName}"
-        ],
-        "problemMatcher": [],
-        "group": {
-            "kind": "build",
-            "isDefault": true
-        },
-        "options": {
-            "cwd": "${workspaceFolder}/src/${input:subfolder}/${input:targetPackageName}"
-        },
+      "label": "setup robot description",
+      "detail": "Setup robot description from rtw template.",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/setup-robot-description.bash  ${input:robotName}"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/src/${input:subfolder}/${input:targetPackageName}"
+      },
     },
-    // bringup
+    // setup bringup pkg
     {
-        "label": "setup robot bringup",
-        "detail": "Setup robot bringup from rtw template.",
-        "type": "shell",
-        "command": "bash",
-        "args": [
-            "-c",
-            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/setup-robot-bringup.bash  ${input:robotName}  ${input:descriptionPackageName}"
-        ],
-        "problemMatcher": [],
-        "group": {
-            "kind": "build",
-            "isDefault": true
-        },
-        "options": {
-            "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
-        },
+      "label": "setup robot bringup",
+      "detail": "Setup robot bringup from rtw template.",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/setup-robot-bringup.bash  ${input:robotName}  ${input:descriptionPackageName}"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
+      },
     },
-
-    //hardware interface
+    // setup ros2_control hardware interface pkg
     {
-        "label": "setup ros2_control hardware interface",
-        "detail": "Setup ros2_control control hardware interface from rtw template.",
-        "type": "shell",
-        "command": "bash",
-        "args": [
-            "-c",
-            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/ros2_control/setup-hardware-interface-package.bash  ${input:fileName}  ${input:className}"
-        ],
-        "problemMatcher": [],
-        "group": {
-            "kind": "build",
-            "isDefault": true
-        },
-        "options": {
-            "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
-        },
+      "label": "setup ros2_control hardware interface",
+      "detail": "Setup ros2_control control hardware interface from rtw template.",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/ros2_control/setup-hardware-interface-package.bash  ${input:fileName}  ${input:className}"
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
+      },
     },
-
+    // setup ros2_control controller pkg
     {
-        "label": "setup ros2_control controller",
-        "detail": "Setup ros2_control controller from rtw template.",
-        "type": "shell",
-        "command": "bash",
-        "args": [
-            "-c",
-            "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/ros2_control/setup-controller-package.bash  ${input:fileName} ."
-        ],
-        "problemMatcher": [],
-        "group": {
-            "kind": "build",
-            "isDefault": true
-        },
-        "options": {
-            "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
-        },
+      "label": "setup ros2_control controller",
+      "detail": "Setup ros2_control controller from rtw template.",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "ROS_WS=${workspaceFolder} ${env:RTW}/scripts/ros2_control/setup-controller-package.bash  ${input:fileName} ."
+      ],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
+      },
     },
   ],
-  "inputs": 
-  [
+  "inputs": [
     {
-        "id": "packageName",
-        "type": "promptString",
-        "description": "Package name"
+      "id": "packageName",
+      "type": "promptString",
+      "description": "Package name"
     },
     {
       "id": "subfolder",
@@ -244,34 +241,34 @@
       "description": "project subfolder name, if dont have subfolder in src just press enter"
     },
     {
-        "id": "packageDescription",
-        "type": "promptString",
-        "description": "Package Description"
+      "id": "packageDescription",
+      "type": "promptString",
+      "description": "Package Description"
     },
     {
-        "id": "robotName",
-        "type": "promptString",
-        "description": "Robot Name"
+      "id": "robotName",
+      "type": "promptString",
+      "description": "Robot Name"
     },
     {
-        "id": "targetPackageName",
-        "type": "promptString",
-        "description": "Target package name"
+      "id": "targetPackageName",
+      "type": "promptString",
+      "description": "Target package name"
     },
     {
-        "id": "descriptionPackageName",
-        "type": "promptString",
-        "description": "Description Package Name"
+      "id": "descriptionPackageName",
+      "type": "promptString",
+      "description": "Description Package Name"
     },
     {
-        "id": "fileName",
-        "type": "promptString",
-        "description": "File Name"
+      "id": "fileName",
+      "type": "promptString",
+      "description": "File Name"
     },
     {
-        "id": "className",
-        "type": "promptString",
-        "description": "Class Name"
+      "id": "className",
+      "type": "promptString",
+      "description": "Class Name"
     }
   ]
 }

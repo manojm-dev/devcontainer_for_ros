@@ -55,7 +55,7 @@ services:
       #- ${HOME}/.ssh/:${USER_DIR}/.ssh/                   # Mount ssh keys
 
       # Bash history
-      - ${HOME}/.bash_history:${USER_DIR}/.bash_history.docker   # Mount bash commands history
+      - ${HOME}/.bash_history.docker:${USER_DIR}/.bash_history   # Mount bash commands history
 
       # User Source file
       - ../src/:${WORKSPACE_DIR}/src                      # Syncs the source Directory
