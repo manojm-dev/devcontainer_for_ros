@@ -1,26 +1,31 @@
 version: 2.1
 
+orbs:
+  docker: circleci/docker@1.7.0
+
 jobs:
-  build:
+  build_and_push:
     docker:
       - image: docker
-    parallelism: 3
     steps:
       - setup_remote_docker
       - checkout
-      - run: |
-          cd .devcontainer && docker compose build 
-      - deploy:
+      - run:
+          name: Build Docker Image
           command: |
-            if [ "${CIRCLE_BRANCH}" == "circleci-project-setup" ]; then
-              echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
-              docker image ls
-              cd .devcontainer
-              docker compose build
-              docker push manojm003/devcontainer:ros-default
-            fi
+            cd .devcontainer
+            docker-compose build
+      - run:
+          name: Login to Docker Hub
+          command: |
+            echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
+      - run:
+          name: Push Docker Image
+          command: |
+            cd .devcontainer
+            docker-compose push
 
 workflows:
   builder:
     jobs:
-      - build
+      - build_and_push
