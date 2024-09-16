@@ -4,6 +4,7 @@ jobs:
   build:
     docker:
       - image: docker
+    parallelism: 3
     steps:
       - setup_remote_docker
       - checkout
@@ -15,7 +16,7 @@ jobs:
               echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
               docker image ls
               cd .devcontainer
-              docker compose push
+              docker push docker push manojm003/devcontainer:ros-default
             fi
 
 workflows:
