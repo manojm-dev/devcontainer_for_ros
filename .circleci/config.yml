@@ -16,6 +16,7 @@ jobs:
               echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
               docker image ls
               cd .devcontainer
+              docker compose build
               docker push manojm003/devcontainer:ros-default
             fi
 
