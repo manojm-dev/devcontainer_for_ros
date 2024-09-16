@@ -16,6 +16,7 @@ services:
         - IROSTOOLS=${IROSTOOLS}
         - IFRAMEWORKS=${IFRAMEWORKS}  
       target: dev
+    image: manojm003:devcontainer-default
     
     # Network Mode Configuration
     network_mode: host                        # Utilize host network stack for seamless communication.
