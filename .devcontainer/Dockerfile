@@ -40,6 +40,7 @@ USER ${USERNAME}
 
 # Giving permissions
 RUN sudo chown -R ${USERNAME}:${USERNAME} /opt/
+RUN sudo chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/
 
 # Creating Workspace
 RUN mkdir -p ${WORKSPACE_DIR}/src
