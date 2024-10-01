@@ -7,7 +7,7 @@ FROM ros:${ROS_DISTRO} as ros
 
 # Docker Arguments
 ARG RMW_IMPLEMENTATION
-ARG USERNAME
+ARG USER_USERNAME
 ARG USER_UID
 ARG USER_GID
 ARG USER_DIR
@@ -30,17 +30,17 @@ RUN apt update && apt install -y python3-virtualenv && virtualenv --system-site-
 RUN if id -u $USER_UID ; then userdel `id -un $USER_UID` ; fi
 
 # Create the user and login
-RUN groupadd --gid ${USER_GID} ${USERNAME} \
-    && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
-    && echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} \
-    && chmod 0440 /etc/sudoers.d/${USERNAME} \
-    && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
+RUN groupadd --gid ${USER_GID} ${USER_USERNAME} \
+    && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USER_USERNAME} \
+    && echo ${USER_USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USER_USERNAME} \
+    && chmod 0440 /etc/sudoers.d/${USER_USERNAME} \
+    && chown -R ${USER_USERNAME}:${USER_USERNAME} /home/${USER_USERNAME}
 
-USER ${USERNAME}
+USER ${USER_USERNAME}
 
 # Giving permissions
-RUN sudo chown -R ${USERNAME}:${USERNAME} /opt/
-RUN sudo chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/
+RUN sudo chown -R ${USER_USERNAME}:${USER_USERNAME} /opt/
+RUN sudo chown -R ${USER_USERNAME}:${USER_USERNAME} /home/${USER_USERNAME}/
 
 # Creating Workspace
 RUN mkdir -p ${WORKSPACE_DIR}/src
