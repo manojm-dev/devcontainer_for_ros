@@ -73,7 +73,7 @@
       },
       "group": {
         "kind": "build",
-        "isDefault": false
+        "isDefault": true
       },
       "problemMatcher": "$gcc"
     },
@@ -110,6 +110,37 @@
       "command": "colcon build --merge-install --cmake-target clean ",
       "problemMatcher": "$gcc"
     },
+
+    // Run Applications
+
+    // Rviz2
+    {
+      "label": "Run Rviz2",
+      "detail": "Run the clean target",
+      "type": "shell",
+      "command": "ros2 run rviz2 rviz2",
+      "problemMatcher": []
+    },    
+
+    // Plotjuggler
+    {
+      "label": "Run PlotJuggler",
+      "detail": "Run the clean target",
+      "type": "shell",
+      "command": "ros2 run plotjuggler plotjuggler",
+      "problemMatcher": []
+    },
+
+    // Foxglove Bridge
+    {
+      "label": "Run Foxglove Bridge",
+      "detail": "Run the clean target",
+      "type": "shell",
+      "command": "ros2 run foxglove_bridge foxglove_bridge",
+      "problemMatcher": []
+    },
+
+
     // Create new package ros2 cli way
     // cpp
     {
