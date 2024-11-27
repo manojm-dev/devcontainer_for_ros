@@ -38,10 +38,18 @@ services:
       - SHELL=/bin/bash
       
       # Display
-      - DISPLAY=${DISPLAY}                    # Specify X11 display server.
+      - DISPLAY=:0                  # Specify X11 display server.
+
+      - XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+
+      # Pulse Audio server
+      - PULSE_SERVER=/mnt/wslg/PulseServer
 
       # ROS
-      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID}        # Define ROS domain ID for communication.
+      - ROS_DOMAIN_ID=5        # Define ROS domain ID for communication.
+
+      # RMW Layer
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
     
     env_file:
       - .env
@@ -49,13 +57,16 @@ services:
     # Volume Configuration
     volumes:
       # Display 
-      - /tmp/.X11-unix/${DISPLAY_NUM}:/tmp/.X11-unix/${DISPLAY_NUM}:rw          # Mounts X11 Socket.
+      - /run/desktop/mnt/host/wslg/.X11-unix:/tmp/.X11-unix          # Mounts X11 Socket.
+
+      # Audio
+      - /run/desktop/mnt/host/wslg:/mnt/wslg  # Mounts pulsewire socket
 
       # SSH
       #- ${HOME}/.ssh/:${USER_DIR}/.ssh/                   # Mount ssh keys
 
       # Bash history
-      - ${HOME}/.bash_history.docker:${USER_DIR}/.bash_history   # Mount bash commands history
+      - ${HOME}/.bash_history.ros:${USER_DIR}/.bash_history   # Mount bash commands history
 
       # User Source file
       - ../src/:${WORKSPACE_DIR}/src                      # Syncs the source Directory
@@ -65,21 +76,5 @@ services:
 
       # Devcontainer config files
       - ../.devcontainer:${WORKSPACE_DIR}/.devcontainer   # Mounts devcontainer config files
-
-      # Mount usb devices
-      - /dev:/dev:rw                                      # Mounts devices dynamically
-
-    device_cgroup_rules:
-      # full access
-      # add all usb devices 
-      # - 'c *:* rwm'
-
-      # fine grained access
-      # add usb modems(ACM*)
-      - 'c 166:* rwm'
-      # add input devices(js*, mouse*, (mice, event*))
-      - 'c 13:* rwm'
-      # add usb serial converters(USB*)
-      - 'c 188:* rwm'
 
     command: sleep infinity
