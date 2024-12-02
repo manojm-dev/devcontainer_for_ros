@@ -1,20 +1,18 @@
 {
   "version": "2.0.0",
   "tasks": [
-    // Clone ros2 packages
     {
-      "label": "clone packages",
+      "label": "Clone GitHub Repository",
       "detail": "Import dependencies with vcs tool.",
       "type": "shell",
-      "command": "vcs import < packages.repos",
+      "command": "git clone ${input:repoURL}",
       "options": {
         "cwd": "${workspaceFolder}/src"
       },
       "problemMatcher": []
     },
-    // Install dependencies using rosdep
     {
-      "label": "install dependencies",
+      "label": "Install Dependencies",
       "detail": "Install all dependencies specified in the workspaces package.xml files.",
       "type": "shell",
       "command": "sudo apt-get update -y && rosdep update && rosdep install --from-paths src --ignore-src -y",
@@ -23,9 +21,8 @@
       },
       "problemMatcher": []
     },
-    // Build - Debug
     {
-      "label": "build debug",
+      "label": "Build --DEBUG",
       "detail": "Build the workspace (release).",
       "type": "shell",
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
@@ -41,9 +38,8 @@
       },
       "problemMatcher": "$gcc"
     },
-    // Build - Release
     {
-      "label": "build release",
+      "label": "Build --RELEASE",
       "detail": "Build the workspace (release).",
       "type": "shell",
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
@@ -59,9 +55,8 @@
       },
       "problemMatcher": "$gcc"
     },
-    // Build - Relesae With Debug Info
     {
-      "label": "build RelWithDebInfo",
+      "label": "Build --RelWithDebInfo",
       "detail": "Build the workspace (release).",
       "type": "shell",
       "command": "colcon build --merge-install --symlink-install --cmake-args '-DCMAKE_BUILD_TYPE=$BUILD_TYPE' '-DCMAKE_EXPORT_COMPILE_COMMANDS=On' -Wall -Wextra -Wpedantic",
@@ -78,7 +73,7 @@
       "problemMatcher": "$gcc"
     },
     {
-      "label": "test",
+      "label": "Test",
       "detail": "Run all unit tests and show results.",
       "type": "shell",
       "command": "colcon test",
@@ -91,9 +86,8 @@
       },
       "problemMatcher": []
     },
-    //Purge
     {
-      "label": "purge",
+      "label": "Purge",
       "detail": "Purge workspace by deleting all generated files.",
       "type": "shell",
       "command": "rm -fr build install log && py3clean .",
@@ -102,27 +96,20 @@
       },
       "problemMatcher": []
     },
-    // Clean
     {
-      "label": "clean",
+      "label": "Clean",
       "detail": "Run the clean target",
       "type": "shell",
       "command": "colcon build --merge-install --cmake-target clean ",
       "problemMatcher": "$gcc"
     },
-
-    // Run Applications
-
-    // Rviz2
     {
       "label": "Run Rviz2",
       "detail": "Run the clean target",
       "type": "shell",
       "command": "ros2 run rviz2 rviz2",
       "problemMatcher": []
-    },    
-
-    // Plotjuggler
+    },
     {
       "label": "Run PlotJuggler",
       "detail": "Run the clean target",
@@ -130,8 +117,6 @@
       "command": "ros2 run plotjuggler plotjuggler",
       "problemMatcher": []
     },
-
-    // Foxglove Bridge
     {
       "label": "Run Foxglove Bridge",
       "detail": "Run the clean target",
@@ -139,35 +124,19 @@
       "command": "ros2 run foxglove_bridge foxglove_bridge",
       "problemMatcher": []
     },
-
-
-    // Create new package ros2 cli way
-    // cpp
     {
-      "label": "create new package ament_cmake",
+      "label": "Create a new package",
       "detail": "Create a new ROS cpp package from a template.",
       "type": "shell",
-      "command": "source /opt/ros/${env:ROS_DISTRO}/setup.bash ; ros2 pkg create --destination-directory src/${input:subfolder} --build-type ament_cmake ${input:packageName}",
+      "command": "source /opt/ros/${env:ROS_DISTRO}/setup.bash ; ros2 pkg create --destination-directory src/${input:subfolder} --build-type ${input:buildType} ${input:packageName}",
       "options": {
         "cwd": "${workspaceFolder}"
       },
       "problemMatcher": []
     },
-    // python
     {
-      "label": "create new package ament_python",
-      "detail": "Create a new ROS python package from a template.",
-      "type": "shell",
-      "command": "source /opt/ros/${env:ROS_DISTRO}/setup.bash ; ros2 pkg create --destination-directory src/${input:subfolder} --build-type ament_python ${input:packageName}",
-      "options": {
-        "cwd": "${workspaceFolder}"
-      },
-      "problemMatcher": []
-    },
-    // Create new package from rtw template
-    {
-      "label": "create new package from template",
-      "detail": "Create a new ROS 2 package from rtw template.",
+      "label": "Create a new package from ros_team_ws template",
+      "detail": "Create a new ROS 2 package from ros_team_ws template.",
       "type": "shell",
       "command": "bash",
       "args": [
@@ -181,11 +150,10 @@
       },
       "options": {
         "cwd": "${workspaceFolder}/src/${input:subfolder}"
-      },
+      }
     },
-    // setup description pkgs
     {
-      "label": "setup robot description",
+      "label": "Setup robot_description package",
       "detail": "Setup robot description from rtw template.",
       "type": "shell",
       "command": "bash",
@@ -200,11 +168,10 @@
       },
       "options": {
         "cwd": "${workspaceFolder}/src/${input:subfolder}/${input:targetPackageName}"
-      },
+      }
     },
-    // setup bringup pkg
     {
-      "label": "setup robot bringup",
+      "label": "Setup robot_bringup package",
       "detail": "Setup robot bringup from rtw template.",
       "type": "shell",
       "command": "bash",
@@ -219,11 +186,10 @@
       },
       "options": {
         "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
-      },
+      }
     },
-    // setup ros2_control hardware interface pkg
     {
-      "label": "setup ros2_control hardware interface",
+      "label": "Setup ros2_control hardware_interface package",
       "detail": "Setup ros2_control control hardware interface from rtw template.",
       "type": "shell",
       "command": "bash",
@@ -238,11 +204,10 @@
       },
       "options": {
         "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
-      },
+      }
     },
-    // setup ros2_control controller pkg
     {
-      "label": "setup ros2_control controller",
+      "label": "Setup ros2_control controller package",
       "detail": "Setup ros2_control controller from rtw template.",
       "type": "shell",
       "command": "bash",
@@ -257,14 +222,28 @@
       },
       "options": {
         "cwd": "${workspaceFolder}/src/${input:targetPackageName}"
-      },
-    },
+      }
+    }
   ],
   "inputs": [
+    {
+      "id": "repoURL",
+      "type": "promptString",
+      "description": "Paste the git repo url to be clone"
+    },
     {
       "id": "packageName",
       "type": "promptString",
       "description": "Package name"
+    },
+    {
+      "id": "buildType",
+      "type": "pickString",
+      "description": "Choose build type of package",
+      "options":[
+        "ament_python",
+        "ament_cmake"
+      ]
     },
     {
       "id": "subfolder",
