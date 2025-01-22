@@ -69,6 +69,9 @@ services:
       # Mount usb devices
       - /dev:/dev:rw                                      # Mounts devices dynamically
 
+      # Mount sound
+      - /run/user/${USER_UID}/pulse:/run/user/1000/pulse  # Mount pulseaudio server socket
+
     device_cgroup_rules:
       # full access
       # add all usb devices 

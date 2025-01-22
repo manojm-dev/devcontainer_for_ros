@@ -3,7 +3,8 @@ ARG ROS_DISTRO
 ##################################
 ######## ROS2 IMAGE ##############
 ##################################
-FROM ros:${ROS_DISTRO} as ros
+FROM ros:humble as ros 
+#issue always chooses jazzy(default) even thought when we give humble via docker args
 
 # Docker Arguments
 ARG RMW_IMPLEMENTATION
@@ -117,4 +118,27 @@ WORKDIR /tmp/scripts
 RUN ./tools.bash
 
 
+
+##################################
+########### Dev layer ############
+##################################
 FROM tools as dev
+
+# Updating packages
+RUN sudo apt-get update &&  sudo apt upgrade -y
+
+
+# AUDIO
+
+## Installing pulseaudio 
+RUN sudo apt-get install -y pulseaudio-utils 
+COPY ./files/pulse-client.conf /etc/pulse/client.conf
+
+## Giving permission for audio
+RUN sudo gpasswd -a ${USER_USERNAME} audio
+
+## Tools to play audio using terminal(pacat), python(playsound & its dep), c++(notyet)
+RUN pip install playsound pygobject
+
+## Installing gstreamer and its plugins(playsound dep)
+RUN sudo apt-get install -y gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-plugins-bad gstreamer1.0-libav gir1.2-gstreamer-1.0 
